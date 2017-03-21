@@ -1,0 +1,906 @@
+/* 默认边距 */
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #F0F0F0;
+    font-family: "雅黑";
+    font-weight: normal;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* 布局容器 */
+#content{
+    width: 100%;
+    height: 100%;
+}
+
+/* 头部标签 */
+#header{
+    height: 140px;
+    width: 100%;
+    background: #FFFFFF;
+}
+
+/* 主体标签 */
+#page{
+    position: relative;
+    top: 0;
+    bottom: 0;
+    margin: 0 150px;
+    padding-top: 10px;
+}
+
+/* 底部标签 */
+#footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: #FFF;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/*
+ *  头部标签样式
+ */
+
+/* 头部导航样式 */
+#header-nav{
+    height: 40px;
+    width: 100%;
+    background: #F0F0F0;
+    text-align: right;
+    line-height: 40px;
+}
+
+#header-nav ul{
+    list-style: none;
+    margin: 0 150px;
+    font-size: 0;
+}
+
+#header-nav ul li{
+    display: inline-block;
+    box-sizing: border-box;
+    border-right: 1px solid #909090;
+    width: 60px;
+    text-align: center;
+    height: 20px;
+    margin-top: 10px;
+}
+
+#header-nav ul li:last-child{
+    border-right:none;
+}
+
+#header-nav li a{
+    text-decoration: none;
+    color: #808080;
+    font-size: 12px;
+    position: relative;
+    top: -10px;
+}
+
+/* 头部搜索区样式 */
+#header-search{
+    margin: 0 150px;
+    height: 100px;
+    font-size: 0;
+    position: relative;
+}
+
+/* 头部LOGO样式 */
+#header-logo{
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    background: url(../images/section-01.jpg) no-repeat;
+    background-position: center;
+}
+
+/* 头部搜索区样式 */
+#search{
+    position: absolute;
+    left: 260px;
+    height: 100%;
+    width: 600px;
+    text-align: center;
+    line-height: 100px;
+}
+
+#search i{
+    position: absolute;
+    top: 36px;
+    left: 56px;
+    font-size: 20px;
+    color: #B0B0B0;
+}
+
+.search{
+    height: 40px;
+    width: 370px;
+    border: 3px solid #FF8C69;
+    padding-left: 30px;
+}
+
+.search-btn{
+    height: 46px;
+    width: 100px;
+    background: #FF8C69;
+    border: 3px solid #FF8C69;
+    color: #FFF;
+    font-size: 15px;
+}
+
+/*
+ *  主体标签样式
+ */
+
+#section{
+    position: relative;
+}
+
+/* 导航样式 */
+#nav{
+    background: #EE0000;
+    width: 250px;
+    height: 240px;
+    position: relative;
+    top: 0px;
+    left: 0;
+    box-sizing: border-box;
+}
+
+#nav ul{
+    list-style: none;
+}
+
+#nav ul li{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    color: #FFFFFF;
+}
+
+#nav ul li:hover{
+    background: #DD0000;
+}
+
+.nav-nextli{
+    position: absolute;
+    left: 1220px;
+    display: none;
+}
+
+.nav-nextli ul{
+    width: 50px;
+    list-style: none;
+    background: #F0F0F0;
+}
+
+.nav-nextli ul li{
+    padding-top: 6px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.nav-nextli ul li a{
+    text-decoration: none;
+    color: #202020;
+}
+
+#nav-page{
+    display: none;
+    position: absolute;
+    width: 210px;
+    height: 240px;
+    top: 0;
+    left: 250px;
+    background: #FFF;
+    z-index: 10;
+    color: #000;
+    padding-top: 20px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    line-height: 36px;
+}
+
+#nav-page a{
+    text-decoration: none;
+    color: #000;
+}
+
+#nav-page h4{
+    padding-left: 10px;
+}
+
+#nav-page span{
+    display: inline-block;
+    text-align: left;
+    padding-left: 10px;
+    border-left: 1px solid #F0F0F0;
+    margin-right: 10px;
+}
+
+#nav-page span:first-child{
+    border: none;
+}
+
+.nav-icon{
+    text-align: center;
+    width: 20px;
+}
+
+.angle-right{
+    position: absolute;
+    right: 10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+}
+
+#main{
+    background: #FFF;
+    height: 240px;
+    width: 600px;
+    position: absolute;
+    top: 0px;
+    left: 250px;
+    margin: 0 10px;
+}
+
+#main ol{
+    position:relative;
+    width: 200px;
+    height: 20px;
+    top:-30px;
+    left:50%;
+    list-style: none;
+    margin-left: -80px;
+}
+#main ol li{
+    float:left;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background: #fff;
+}
+#main ol li.seleted{
+    background: #1AA4CA;
+}
+
+#sider{
+    background: #FFF;
+    height: 240px;
+    width: 250px;
+    position: absolute;
+    top: 0px;
+    left: 870px;
+    text-align: center;
+    color: #F00;
+}
+
+#sider h2{
+    margin-top: 14px;
+    color: #D00;
+}
+
+#sider i{
+    display: block;
+    font-size: 120px;
+    color: #FF9C05;
+}
+
+.btn{
+    height: 40px;
+    width: 100px;
+    margin-top: 10px;
+    background: #F00;
+    border: none;
+    color: #FFF;
+    font-size: 16px;
+}
+
+/* 正文主体样式 */
+#wares{
+    background: #FFF;
+    width: 1120px;
+    margin-top: 10px;
+}
+
+/* 推荐产品样式 */
+.wares-kind{
+    width: 100%;
+    background: #F0F0F0;
+    font-size: 0;
+    padding-bottom: 10px;
+}
+
+.wares-head{
+    height: 30px;
+    width: 100%;
+    color: #CD0000;
+    font-size: 18px;
+}
+
+.wares-main{
+    border-top: 2px solid #CD0000;
+    height: 350px;
+    background: #FFFFFF;
+    font-size: 0;
+}
+
+.thisware{
+    height: 100%;
+    width: 224px;
+    display: inline-block;
+    box-sizing: border-box;
+    border-right: 1px solid #F0F0F0;
+    text-align: center;
+    position: relative;
+    top: 0;
+    vertical-align: middle;
+    line-height: 20px;
+    overflow: hidden;
+}
+
+.thisware-head{
+    width: 200px;
+    height: 300px;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -100px;
+}
+
+.thisware-head img{
+    height: 50%;
+    width: 100%;
+}
+
+.thisware-head h2{
+    font-size: 20px;
+    color: #FF0000;
+}
+
+.thisware h3{
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.thisware p{
+    font-size: 12px;
+    color: #B0B0B0;
+}
+
+.thisware-part{
+    height: 50%;
+    width: 100%;
+}
+
+.thisware-part img{
+    height: 100px;
+}
+
+.b{
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.thisimg{
+    width: 224px;
+    height: 350px;
+}
+
+.thisimg-mes{
+    position: absolute;
+    top: 230px;
+    left: 12px;
+    border: 1px solid #FFF;
+}
+
+.thisimg-mes div{
+    width: 196px;
+    height: 96px;
+    margin: 2px;
+    background: #FFF;
+    opacity: 0.6;
+}
+
+.thisimg-mes p{
+    color: #000000;
+    height: 96px;
+    line-height: 96px;
+    font-size: 20px;
+}
+
+.thismouseover:hover{
+    transform: scale(1,1);
+    border-radius: 8px;
+    box-shadow: 0 -1px 10px rgba(0,0,0,.5)
+}
+
+/*
+ *  底部标签样式
+ */
+
+
+
+/*
+ *    主购物页面样式
+ *
+ *
+ *
+ *
+ */
+
+/* 商品列表样式 */
+.main-wares{
+    width: 1200px;
+    font-size: 0;
+}
+
+/* 商品样式 */
+.ware{
+    width: 240px;
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 12px;
+    background: #FFFFFF;
+    border: 1px solid #F0F0F0;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+
+/* 商品图片样式 */
+.ware-img img{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+/* 商品购买样式 */
+.ware-buy{
+    height: 150px;
+    padding-top: 20px;
+}
+
+.ware-buy h4{
+    font-size: 20px;
+    color: #F00;
+    padding-left: 5px;
+}
+
+.ware-buy p{
+    font-size: 12px;
+    color: #606060;
+    padding-left: 5px;
+}
+
+.ware-buy-btn{
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+/* 购买数量 */
+.ware-num{
+    height: 24px;
+    width: 24px;
+    text-align: center;
+}
+
+/* 加减按钮样式 */
+.ware-btn{
+    display: inline-block;
+}
+
+/* 增加数量 */
+.ware-add{
+    border: 1px solid #F0F0F0;
+    background: #FFF;
+    width: 20px;
+    height: 20px;
+}
+
+/* 减少数量 */
+.ware-minus{
+    border: 1px solid #F0F0F0;
+    background: #FFF;
+    width: 20px;
+    height: 20px;
+}
+
+/* 加入购物车 */
+.ware-cart{
+    background: #FF8C69;
+    border: 1px solid #FF8C69;
+    color: #FFF;
+    height: 30px;
+    padding: 0 10px;
+}
+
+
+/* 翻页样式 */
+.next{
+    
+}
+
+#footer span{
+    height: 80px;
+    line-height: 80px;
+    font-family: "Tahoma";
+}
+
+
+/*
+ *    单件商品页面样式
+ *
+ *
+ *
+ *
+ */
+
+
+/* 商品样式 */
+#commodity{
+    width: 1000px;
+    height: 480px;
+    background: #FFF;
+    font-size: 0;
+    margin-left: 60px;
+}
+
+#commodity-img{
+    width: 400px;
+    height: 400px;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    margin-left: 40px;
+    margin-top: 10px;
+    border: 3px solid #FF8C69;
+}
+
+#commodity-img img{
+    height: 100%;
+    width: 100%;
+}
+
+#information{
+    width: 700px;
+    height: 500px;
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 20px;
+    position: absolute;
+    top: 60px;
+    left: 500px;
+    padding-left: 40px;
+}
+
+#information h3{
+    margin: 40px 0;
+    font-size: 50px;
+    color: #F00;
+}
+
+.wares-ware-btn{
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+/*  用户信息总页
+ *  用户个人资料页面
+ *  订单查询
+ *  
+ */
+
+/* 左侧页面导航 */
+#sidenav{
+    width: 180px;
+    height: 600px;
+    background: #FFF;
+}
+
+#total{
+    position: absolute;
+    top: 10px;
+    left: 190px;
+    width: 900px;
+    min-height: 600px;
+    background: #FFF;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#total a{
+    color: #A0A0A0;
+}
+
+.sidernav-head{
+    width: 100%;
+    height: 40px;
+    background: #FFF;
+    border-bottom: 2px solid #F00;
+    line-height: 40px;
+    font-size: 16px;
+    font-family: "黑体";
+}
+
+.sidernav-head i{
+    color: #F00;
+    margin: 0 10px 0 40px;
+}
+
+.sidernav-ul{
+    width: 100%;
+    height: 100%;
+}
+
+.sidernav-ul ul{
+    list-style: none;
+}
+
+.sidernav-ul ul li{
+    text-align: center;
+    border-bottom: 1px solid #F0F0F0;
+    height: 40px;
+    line-height: 40px;
+}
+
+.thissider{
+    background: #FFF0F0;
+}
+
+.myorder{
+    display: block;
+    height: 600px;
+    width: 100%;
+    background: #FFF;
+}
+
+.userinfo{
+    display: none;
+    height: 600px;
+    width: 100%;
+    background: #FFF;
+}
+
+.maaddress{
+    display: none;
+    height: 600px;
+    width: 100%;
+    background: #FFF;
+}
+
+.modifypsd{
+    display: none;
+    height: 600px;
+    width: 100%;
+    background: #FFF;
+}
+
+
+/* 订单页面样式 */
+.order-head{
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: linear-gradient(to bottom,#FFF 0%,#F0F0F0 100%);
+    border: 1px solid #D0D0D0;
+}
+
+.myorder span{
+    display:inline-block;
+    width: 120px;
+}
+
+.myorder span:nth-child(2){
+    width: 240px;
+}
+
+.orderinfo{
+    text-align: center;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    border: 1px solid #F0F0F0;
+}
+
+
+/* 资料页面样式 */
+.userinfo form{
+    padding-top: 80px;
+    padding-left: 160px;
+}
+
+.userinfo input{
+    display: block;
+    width: 280px;
+    height: 40px;
+    padding-left: 20px;
+    margin-top: 20px;
+}
+
+#male{
+    display:inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 10px 20px;
+}
+
+#female{
+    display:inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 10px; 20px;
+}
+
+.userinfo button{
+    display: block;
+    width: 160px;
+    height: 40px;
+    margin-left: 60px;
+    margin-top: 40px;
+}
+
+/* 地址页面样式 */
+
+.addaddress{
+    width: 100%;
+    height: 60px;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.addaddress input{
+    height: 40px;
+    padding-left: 10px;
+}
+
+.addaddress input:nth-child(1){
+    width: 300px;
+}
+
+.addaddress button{
+    height: 40px;
+    width: 100px;
+    margin-left: 20px;
+}
+
+.address-head{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: linear-gradient(to bottom,#FFF 0%,#F0F0F0 100%);
+    border: 1px solid #D0D0D0;
+}
+
+.address-head span{
+    display: inline-block;
+    width: 160px;
+    text-align: center;
+}
+
+.address-head span:nth-child(1){
+    width: 400px;
+}
+
+.myaddress span{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    width: 160px;
+    text-align: center;
+}
+
+.myaddress span:nth-child(1){
+    width: 400px;
+}
+
+.myaddress i{
+    font-size: 20px;
+}
+
+/* 密码页面样式 */
+
+.modifypsd div{
+    width: 100%;
+    padding-top: 80px;
+    padding-left: 160px;
+}
+
+.modifypsd input{
+    display: block;
+    width: 220px;
+    height: 40px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.modifypsd button{
+    display: block;
+    width: 160px;
+    height: 40px;
+    margin-left: 40px;
+}
+
+/*
+ *   
+ *  购物车页面样式
+ *
+ *
+ */
+
+.cart{
+    width: 100%;
+    min-height: 480px;
+    background: #FFF;
+}
+
+.cart-head{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: linear-gradient(to bottom,#FFF 0%,#F0F0F0 100%);
+    border: 1px solid #D0D0D0;
+}
+
+.cart-head span{
+    display: inline-block;
+    width: 160px;
+    text-align: center;
+}
+
+.cart-head span:nth-child(1){
+    width: 400px;
+}
+
+.cart-ware{
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.cart-ware img{
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+}
+
+.cart-ware span{
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+}
+
+.cart-ware span:nth-child(1){
+    width: 400px;
+}
+
+.cart-ware input{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.cart-ware i{
+    font-size: 20px;
+    color: #A0A0A0;
+}
+
+#mesware{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}

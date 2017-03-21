@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd" >
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<package name="default" namespace="/" extends="struts-default">
+		<!-- 页面注册操作响应 -->
+		<action name="UserRegister" class="UserAction" method="Register" >
+			<!-- 表单重复提交 -->
+			<!-- <interceptor-ref name="tokenSession"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref> -->
+			<result>/index.jsp</result>
+			<result name="fail" >/register.jsp</result>
+		</action>
+		
+		<!-- 页面登录操作响应 -->
+		<action name="UserLogin" class="UserAction" method="Login" >
+			<result>/index.jsp</result>
+			<result name="fail">/login.jsp</result>
+		</action>
+		
+		<!-- 验证用户名是否存在 -->
+		<action name="hasName" class="UserAction" method="hasName" >
+			<result></result>
+		</action>
+		
+		<!-- 修改用户信息 -->
+		<action name="Modify" class="UserAction" method="Modify" >
+			<result></result>
+		</action>
+		
+		<!-- 修改用户密码 -->
+		<action name="ModifyPassword" class="UserAction" method="ModifyPassword">
+			<result></result>
+		</action>
+		
+		<!-- 添加地址 -->
+		<action name="NewAddress" class="AddressAction" method="NewAddress" >
+			<result></result>
+		</action>
+		
+	</package>
+</struts>

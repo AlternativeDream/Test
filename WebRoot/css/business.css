@@ -1,0 +1,142 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    font-family: "雅黑";
+}
+
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+#content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #FFF;
+}
+
+#header{
+    width: 100%;
+    height: 80px;
+    font-size: 0;
+}
+
+#page{
+    width: 80%;
+    margin: 0 10%;
+    height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #F0F0F0;
+}
+
+#footer{
+    width: 100%;
+    height: 40px;
+}
+
+/* 头部标签 */
+.header-search{
+    height: 80px;
+    width: 460px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 10%;
+    vertical-align: top;
+    line-height: 80px;
+}
+
+.header-search input{
+    height: 30px;
+}
+
+.header-search button{
+    height: 34px;
+}
+
+.header-addware{
+    height: 80px;
+    width: 200px;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.header-addware button{
+    height: 40px;
+    width: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -30px;
+}
+
+.header-kind{
+    height: 80px;
+    width: 200px;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: top;
+    font-size: 12px;
+    margin-left: 200px;
+    position: relative;
+}
+
+.header-kind input{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.header-kind button{
+    position: absolute;
+    right: -60px;
+    top: 24px;
+    height: 30px;
+}
+
+
+/* 商品标签 */
+.ware-head{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: linear-gradient(to bottom,#FFF 0%,#F0F0F0 100%);
+    border: 1px solid #D0D0D0;
+}
+
+.ware-head span{
+    display: inline-block;
+    width: 160px;
+    text-align: center;
+}
+
+.ware{
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.ware img{
+    height: 80px;
+    width: 60px;
+    vertical-align: middle;
+}
+
+.ware span{
+    display: inline-block;
+    width: 160px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* 底部标签 */

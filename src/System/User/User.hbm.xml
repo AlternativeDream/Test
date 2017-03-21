@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="System.User.User" table="user" >
+		
+		<id name="userId" type="integer" >
+			<column name="userId" />
+			<generator class="native"></generator>
+		</id>
+		<property name="userName" type="string" column="userName" unique="true" />
+		<property name="userPassword" type="string" column="userPassword" />
+		<property name="userSex" type="string" column="userSex" />
+		<property name="userTel" type="string" column="userTel" unique="true" />
+		
+		<set name="address" table="address" inverse="true" >
+			<key column="userId" ></key>
+			<one-to-many class="System.User.Address" />
+		</set>
+		
+		<set name="orders" table="orders" inverse="true" >
+			<key column="userId"></key>
+			<one-to-many class="System.Order.Order" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

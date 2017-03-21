@@ -1,0 +1,136 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #FFFAFA;
+    font-family: "雅黑";
+}
+
+/* 头部标签 */
+#header{
+    width: 100%;
+    height: 80px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #C0C0C0;
+    position: absolute;
+    top: 0;
+}
+
+/* 正文标签 */
+#page{
+    position: absolute;
+    width: 100%;
+    top: 80px;
+    bottom: 80px;
+}
+
+/* 底部标签 */
+#footer{
+    width: 100%;
+    height: 80px;
+    background: #FFF;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+}
+
+/* 头部图片标签 */
+.header-img{
+    background: url(../images/section-01.jpg) no-repeat;
+    width: 200px;
+    height: 80px;
+    margin-left: 100px;
+    background-position: center;
+    display: inline-block;
+}
+
+#header h5{
+    position: absolute;
+    top: 0;
+    right: 200px;
+    padding-top: 10px;
+    color: #A0A0A0;
+}
+
+#header h5 a{
+    text-decoration: none;
+}
+
+.page-form{
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%,0);
+    text-align: center;
+}
+
+.page-form h2{
+    font-family: "黑体";
+}
+
+.inputtext{
+    display: block;
+    margin-top: 10px;
+    width: 300px;
+    height: 40px;
+    padding-left: 20px;
+}
+
+.subbtn{
+    margin-top: 10px;
+    width: 326px;
+    height: 40px;
+    border: 1px solid #F0F0F0;
+    background: #FF8C69;
+    color: #FFF;
+    font-size: 20px;
+    font-family: "雅黑";
+}
+
+#footer span{
+    height: 80px;
+    line-height: 80px;
+    font-family: "Tahoma";
+}
+
+.login-form{
+    width: 400px;
+    height: 340px;
+    background: #FFF;
+    position: absolute;
+    right: 200px;
+    top: 100px;
+}
+
+.login-form form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.login-form a{
+    position: absolute;
+    right: 0;
+    top: 6px;
+    text-decoration: none;
+}
+
+.logininput{
+    margin-top: 20px;
+    width: 300px;
+    height: 50px;
+    padding-left: 20px;
+}
+
+.login-img{
+    background: url(../images/ChEi31iVeBmAB3QYAAFKjnD6KCI92200.jpg) no-repeat;
+    background-position: center;
+    position: absolute;
+    width: 500px;
+    height: 400px;
+    left: 200px;
+    top: 80px;
+}
