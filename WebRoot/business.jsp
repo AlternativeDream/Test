@@ -35,6 +35,7 @@
                         <div class="main-ware">
                             <input id="wareKey" type="text" placeholder="请输入关键词" />
                             <select id="wareKind">
+                            	<option value="-1">无</option>
                                 <option value="0">零食/果干/坚果</option>
                                 <option value="1">饼干/糕点</option>
                                 <option value="2">糖果/巧克力</option>
@@ -194,7 +195,29 @@
         </div>
         <!--底部标签-->
         <div class="footer"></div>
+        
+        <!--商品模板-->
+        <script id="wares" type="text/html">
+            <div class="ware">
+                <div class="ware-title">
+                    <span>商品编号：{{wareId}}</span>
+                    <span></span>
+                    <span></span>
+                    <a href="#">商品备注</a>
+                </div>
+                <div class="ware-mes">
+                    <span><p class="vm">{{wareName}}</p></span>
+                    <span><p class="vm">{{warePrice}}</p></span>
+                    <span><p class="vm">{{description}}</p></span>
+                    <span><p class="vm">{{wareKind}}</p></span>
+                    <span><p class="vm">{{warekey}}</p></span>
+                    <span><p class="vm">{{status}}</p></span>
+                    <span><p class="vm"><input class="btn-add" type="button" value="修改信息" /></p></span>
+                </div>
+            </div>
+        </script>
 
+        <script type="text/javascript" src="js/template.js"></script>
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
@@ -223,6 +246,17 @@
                     $(".main-order").css("display","none");
                     $(".main-ware").css("display","block");
                     $(".main-user").css("display","none");
+                    
+                    var getWares = $.ajax({
+                        type: 'POST',
+                        url: 'getWares',
+                        data: {},
+                        datatype: 'json',
+                        success: function(data){
+                        	var warelist = data;
+                        	alert(warelist);
+                        }
+                    });
                 });
                 
                 $("#users-manage").click(function(){
@@ -239,14 +273,14 @@
                 });
                 
                 $("#addnewware").click(function(){
-                	var addnew = $(this).parent();
+                	var addnew = $(".addware");
                     var wareName = addnew.find(".wareName").val();
                     var warePrice = addnew.find(".warePrice").val();
                     var description = addnew.find(".description").val();
                 	var wareKind = addnew.find(".wareKind").val();
                 	var warekey = addnew.find(".warekey").val();
                 	var wareimg = addnew.find(".wareimg").val();
-                	
+                	alert(wareName);
                 	var addware = $.ajax({
                 		type: "POST",
                 		url: "AddWare",
@@ -260,11 +294,16 @@
                     	},
                 		datatype: "json",
                 		success: function(){
-                			alert("!");
                 		}
                 	});
-                	
                     $(".addware").fadeOut();
+                    
+                    var message = "${message}";
+                    
+                    if(message != ""){
+                    	alert(message);
+                    }
+                    
                 });
                 
                 $(".wares-list").on('click','.btn-add',function(){

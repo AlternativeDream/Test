@@ -46,6 +46,11 @@
 		<action name="AddWare" class="WareAction" method="AddWare" >
 			<result></result>
 		</action>
+		
+		<!-- 获取商品数据 -->
+		<action name="getWares" class="WareAction" method="getWares" >
+			<result></result>
+		</action>
 
 	</package>
 </struts>

@@ -1,12 +1,18 @@
 package System.Ware;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+
+import net.sf.json.JSONArray;
 
 /**
  * @TypeName：WareAction
@@ -18,7 +24,7 @@ import com.opensymphony.xwork2.ActionSupport;
  *     1.
  *     2.
  */
-public class WareAction extends ActionSupport{
+public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 
 	/**
 		 * @function
@@ -30,6 +36,7 @@ public class WareAction extends ActionSupport{
 	WareService wareService;
 	HttpSession session = ServletActionContext.getRequest().getSession();
 	HttpServletRequest request = ServletActionContext.getRequest();
+	HttpServletResponse response = ServletActionContext.getResponse();
 	
 	private Ware ware;
 
@@ -39,21 +46,7 @@ public class WareAction extends ActionSupport{
 	public String AddWare(){
 		String result = "success";
 		
-		try{
-			String wareName = request.getParameter("wareName");
-			String warePrice = request.getParameter("warePrice");
-			String description = request.getParameter("description");
-			String wareKind = request.getParameter("wareKind");
-			String warekey = request.getParameter("warekey");
-			String wareimg = request.getParameter("wareimg");
-			
-			ware.setWareName(wareName);
-			ware.setWarePrice(warePrice);
-			ware.setDescription(description);
-			ware.setWareKind(wareKind);
-			ware.setWarekey(warekey);
-			ware.setWareimg(wareimg);
-			
+		try{	
 			if(wareService.add(ware) > 0){
 				session.setAttribute("message", "添加成功！");
 			}
@@ -63,6 +56,33 @@ public class WareAction extends ActionSupport{
 		}
 		
 		return result;
+	}
+	
+	public String getWares(){
+		String result = "success";
+		
+		try{
+			List<?> list;
+			JSONArray rsp;
+			
+			if(ware == null){
+				ware = new Ware();
+			}
+			
+			list = wareService.query(ware);
+			rsp = JSONArray.fromObject(list);
+			response.getWriter().write(rsp.toString());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Ware getModel() {
+		ware = new Ware();
+		return ware;
 	}
 
 }
