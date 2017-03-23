@@ -1,142 +1,384 @@
 *{
-    padding: 0;
     margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-body{
-    width: 100%;
-    height: 100%;
-    font-family: "雅黑";
-}
-
-a{
-    text-decoration: none;
-}
-
-ul{
+ul {
     list-style: none;
 }
 
-#content{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: #FFF;
+a {
+    text-decoration: none;
 }
 
-#header{
-    width: 100%;
-    height: 80px;
-    font-size: 0;
+body {
+    font-family: Helvetica,Arial,STHeiTi,"Hiragino Sans GB","Microsoft Yahei","微软雅黑",STHeiti,"华文细黑",sans-serif;
+    font-size: 14px;
+    color: #333;
 }
 
-#page{
-    width: 80%;
-    margin: 0 10%;
-    height: 600px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border: 1px solid #F0F0F0;
-}
-
-#footer{
-    width: 100%;
-    height: 40px;
-}
-
-/* 头部标签 */
-.header-search{
-    height: 80px;
-    width: 460px;
-    display: inline-block;
-    box-sizing: border-box;
-    margin-left: 10%;
-    vertical-align: top;
-    line-height: 80px;
-}
-
-.header-search input{
-    height: 30px;
-}
-
-.header-search button{
-    height: 34px;
-}
-
-.header-addware{
-    height: 80px;
-    width: 200px;
-    display: inline-block;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.header-addware button{
-    height: 40px;
-    width: 60px;
+.center-translate {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -20px;
-    margin-left: -30px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
-.header-kind{
-    height: 80px;
-    width: 200px;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: top;
-    font-size: 12px;
-    margin-left: 200px;
+.header{
+    
+}
+
+.wrap-page{
+    width: 1200px;;
+    height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #CCC;
+    position: relative;
+    background: #F0F0F0;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%,0);
+    box-shadow: 0 -1px 4px rgba(0,0,0,.1);
+}
+
+.page{
+    
+}
+
+#footer{
+
+}
+
+
+.nav{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    background: #FFF;
+    border-right: 1px solid #CCC;
+}
+
+.nav li{
     position: relative;
 }
 
-.header-kind input{
-    margin-left: 20px;
-    margin-top: 10px;
-}
-
-.header-kind button{
-    position: absolute;
-    right: -60px;
-    top: 24px;
-    height: 30px;
-}
-
-
-/* 商品标签 */
-.ware-head{
+.menu{
     width: 100%;
-    height: 40px;
     line-height: 40px;
+    text-align: center;
+}
+
+.menu ul{
+    display: none;
+}
+
+.menu ul li{
+    border-bottom: 1px solid #CCC;
+}
+
+.flmenu{
     background: linear-gradient(to bottom,#FFF 0%,#F0F0F0 100%);
     border: 1px solid #D0D0D0;
 }
 
-.ware-head span{
-    display: inline-block;
-    width: 160px;
-    text-align: center;
+.flmenu i{
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    color: #999;
 }
 
-.ware{
+.main{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 262px;
+    width: 940px;
+    background: #F0F0F0;
+}
+
+.main-search{
     width: 100%;
-    height: 80px;
-    border-bottom: 1px solid #F0F0F0;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #CCC;
+    padding-left: 20px;
+    background: #FFF;
 }
 
-.ware img{
-    height: 80px;
+.main-ware,.main-user{
+    display: none;
+}
+
+.onthis{
+    background: #F0F0F0;
+}
+
+.btn-search{
+    margin-left: 10px;
     width: 60px;
-    vertical-align: middle;
+    height: 26px;
 }
 
-.ware span{
-    display: inline-block;
-    width: 160px;
+.orders,.wares,.users{
+    position:absolute;
+    top: 50px;
+    left: 10px;
+    right: 14px;
+    bottom: 10px;
+    border: 1px solid #CCC;
+    background: #FFF;
+    display: none;
+}
+
+.orders-head,.wares-head,.users-head{
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    background: linear-gradient(to bottom,#FFF 0%,#F0F0F0 100%);
+    border-bottom: 1px solid #CCC;
+    font-size: 0;
+}
+
+.orders-head span{
+    width: 100px;
     text-align: center;
-    vertical-align: middle;
+    display: inline-block;
+    font-size: 12px;
+    box-sizing: border-box;
 }
 
-/* 底部标签 */
+.orders-head span:first-child{
+    width: 280px;
+}
+
+.orders-list,.wares-list,.users-list{
+    padding: 6px;
+    overflow-y:auto;
+    position: absolute;
+    top: 50px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.order,.ware,.user{
+    width: 100%;
+    border: 1px solid #DDD;
+    font-size: 0;
+    margin-bottom: 6px;
+}
+
+.order-title,.ware-title,.user-title{
+    width: 100%;
+    height: 30px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #EEE;
+    font-size: 12px;
+    line-height: 30px;
+    color: #999;
+}
+
+.order-title span{
+    margin-left: 20px;
+    text-align: center;
+    width: 180px;
+    display: inline-block;
+}
+
+.order-title span:first-child{
+    width: 260px;
+    text-align: left;
+}
+
+.order-title a{
+    float: right;
+    margin-right: 40px;
+}
+
+.order-mes,ware-mes,user-mes{
+    width: 100%;
+}
+
+.order-mes span{
+    width: 100px;
+    height: 90px;
+    text-align: center;
+    font-size: 14px;
+    display: inline-block;
+    border-left: 1px solid #EEE;
+    vertical-align:top;
+}
+
+.order-mes span:first-child{
+    width: 270px;
+    border: none;
+}
+
+.order-mes input{
+    height: 30px;
+    padding: 0 6px;
+    margin-left: 20px;
+    width: 80px;
+}
+
+.vm{
+    position: relative;
+    top: 50%;
+    transform: translate(0,-50%);
+}
+
+.ispay{
+    background: #63B8FF;
+    color: #FFF;
+}
+
+.isok{
+    visibility: hidden;
+}
+
+.add-mes{
+    padding-right: 10px;
+}
+
+
+
+.wares-head span{
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.wares-head span:first-child{
+    width: 280px;
+}
+
+.ware-title span{
+    margin-left: 20px;
+    text-align: center;
+    width: 180px;
+    display: inline-block;
+}
+
+.ware-title span:first-child{
+    width: 260px;
+    text-align: left;
+}
+
+.ware-title a{
+    float: right;
+    margin-right: 40px;
+}
+
+.ware-mes span{
+    width: 100px;
+    height: 90px;
+    text-align: center;
+    font-size: 14px;
+    display: inline-block;
+    border-left: 1px solid #EEE;
+    vertical-align:top;
+}
+
+.ware-mes span:first-child{
+    width: 270px;
+    border: none;
+}
+
+.ware-mes input{
+    height: 30px;
+    padding: 0 6px;
+    margin-left: 20px;
+    width: 80px;
+}
+
+.addware,.updateware{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -250px;
+    padding: 20px;
+    z-index: 20;
+    background: #FFF;
+    border: 2px solid #CCC;
+}
+
+.addware input{
+    display: block;
+    width: 200px;
+    height: 40px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.updateware input{
+    display: block;
+    width: 200px;
+    height: 40px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.users-head span{
+    width: 140px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.users-head span:first-child{
+    width: 280px;
+}
+
+.user-title span{
+    margin-left: 20px;
+    text-align: center;
+    width: 180px;
+    display: inline-block;
+}
+
+.user-title span:first-child{
+    width: 260px;
+    text-align: left;
+}
+
+.user-title a{
+    float: right;
+    margin-right: 40px;
+}
+
+.user-mes span{
+    width: 140px;
+    height: 90px;
+    text-align: center;
+    font-size: 14px;
+    display: inline-block;
+    border-left: 1px solid #EEE;
+    vertical-align:top;
+}
+
+.user-mes span:first-child{
+    width: 270px;
+    border: none;
+}
+
+.user-mes input{
+    height: 30px;
+    padding: 0 6px;
+    margin-left: 20px;
+    width: 120px;
+}
+
+

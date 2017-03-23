@@ -18,6 +18,7 @@ public class Ware {
 	private String wareKind;
 	private String warekey;
 	private String wareimg;
+	private int status = 1;
 	
 	public Ware(){}
 	
@@ -26,7 +27,7 @@ public class Ware {
 	}
 
 	public Ware(Integer wareId, String wareName, String warePrice, String description, String wareKind, String warekey,
-			String wareimg) {
+			String wareimg,int status) {
 		super();
 		this.wareId = wareId;
 		this.wareName = wareName;
@@ -35,6 +36,7 @@ public class Ware {
 		this.wareKind = wareKind;
 		this.warekey = warekey;
 		this.wareimg = wareimg;
+		this.status = status;
 	}
 
 	public Integer getWareId() {
@@ -93,12 +95,19 @@ public class Ware {
 		this.wareimg = wareimg;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "Ware [wareId=" + wareId + ", wareName=" + wareName + ", warePrice=" + warePrice + ", description="
-				+ description + ", wareKind=" + wareKind + ", warekey=" + warekey + ", wareimg=" + wareimg + "]";
-	}
-
-	
+				+ description + ", wareKind=" + wareKind + ", warekey=" + warekey + ", wareimg=" + wareimg + ", status="
+				+ status + "]";
+	}	
 	
 }

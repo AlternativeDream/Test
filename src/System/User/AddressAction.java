@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.opensymphony.xwork2.ActionSupport;
+
 /**
  * @TypeName：AddressAction
  * @description：
@@ -18,8 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  *     1.
  *     2.
  */
-public class AddressAction {
+public class AddressAction extends ActionSupport {
 
+	/**
+		 * @function
+		 * @param 
+		 * @return 
+	     */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	AddressService addressService;
 	HttpSession session = ServletActionContext.getRequest().getSession();

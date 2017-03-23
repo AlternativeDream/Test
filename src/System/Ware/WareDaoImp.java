@@ -73,14 +73,14 @@ public class WareDaoImp implements WareDao {
 		
 		return result;
 	}
-
 	
 	@Override
 	public int delete(Ware ware) throws Exception {
 		int result = -1;
 		
 		try{
-			getSession().delete(ware);
+			ware.setStatus(0);
+			getSession().update(ware);
 			
 			if(this.query(ware).size() == 0 ){
 				result = 1;
@@ -145,7 +145,6 @@ public class WareDaoImp implements WareDao {
 		return result;
 	}
 
-	
 	@Override
 	public int modify(Ware ware) throws Exception {
 		int result = -1;

@@ -13,5 +13,6 @@
 		<property name="wareKind" type="string" column="wareKind" />
 		<property name="warekey" type="string" column="warekey" />
 		<property name="wareimg" type="string" column="wareimg" />
+		<property name="status" type="int" column="status" ></property>
 	</class>
 </hibernate-mapping>

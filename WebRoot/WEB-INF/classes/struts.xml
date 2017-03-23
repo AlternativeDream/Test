@@ -42,5 +42,10 @@
 			<result></result>
 		</action>
 		
+		<!-- 新增商品 -->
+		<action name="AddWare" class="WareAction" method="AddWare" >
+			<result></result>
+		</action>
+
 	</package>
 </struts>

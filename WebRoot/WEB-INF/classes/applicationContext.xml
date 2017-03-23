@@ -57,6 +57,7 @@
 	<!-- 整合spring-struts -->
 	<bean id="UserAction" class="System.User.UserAction" scope="prototype" ></bean>
 	<bean id="AddressAction" class="System.User.AddressAction" scope="prototype" ></bean>
+	<bean id="WareAction" class="System.Ware.WareAction" scope="prototype"></bean>
 	
 	<!-- <bean id="UserAction" class="System.User.UserAction" scope="prototype" ></bean>
 	<bean id="MenuAction" class="System.Menu.MenuAction" scope="prototype" ></bean>
