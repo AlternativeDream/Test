@@ -72,33 +72,24 @@ public class AddressDaoImp implements AddressDao {
 	}
 
 	@Override
-	public List<Map<Integer, Object>> query(Address address) throws Exception {
-		List<Map<Integer,Object>> result = new ArrayList<Map<Integer, Object>>();
+	public List<?> query(Address address) throws Exception {
+		List<?> result;
 		
 		try{
 			String Hql = " from Address a where 1=1";
 			Query query = null;
 			
-			if(address.getUser() != null && address.getUser().getUserId() != null && !address.getUser().getUserId().equals("") && address.getAddress() != null && !address.getAddress().equals("") ){
-				Hql += " and a.userId=? and a.address=?";
-				query = getSession().createQuery(Hql).setInteger(0, address.getUser().getUserId()).setString(1, address.getAddress());
-			}else if(address.getUser() != null && address.getUser().getUserId() != null && !address.getUser().getUserId().equals("")){
+			if(address.getUserId() != null && address.getUserId() != null && !address.getUserId().equals("")){
 				Hql += " and a.userId=?";
-				query = getSession().createQuery(Hql).setInteger(0, address.getUser().getUserId());
+				query = getSession().createQuery(Hql).setInteger(0, address.getUserId());
 			}else{
 				query = getSession().createQuery(Hql);
 			}
 			
-			List<?> list = query.list();
-			Address add;
-			Map<Integer,Object> map = new HashMap<Integer, Object>();
+			result = query.list();
 			
-			for(int i = 0; i < list.size(); i++){
-				add = (Address)list.get(i);
-				map.put(add.getAddressId(), add);
-				result.add(map);
-			}
 			
+
 		}catch(Exception e){
 			throw e;
 		}

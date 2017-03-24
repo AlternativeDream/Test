@@ -118,20 +118,15 @@ public class AddressServiceImp implements AddressService {
 
 	@Override
 	public List<?> query(Address address) throws Exception {
-		List<Address> result = new ArrayList<Address>();
+		List<?> result = null;
 		
 		try{
-			List<Map<Integer, Object>> list = this.provider.query(address);
+			List<?> list = this.provider.query(address);
 			
-			if(list == null || list.size() == 0){
-				return result;
+			if(list.size() > 0){
+				result = list;
 			}
 			
-			for(Map<Integer,Object> map:list){
-				for(Object value : map.values()){
-					result.add((Address) value);
-				}
-			}
 		}catch(Exception e){
 			throw e;
 		}

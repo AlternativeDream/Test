@@ -33,7 +33,7 @@ public interface AddressDao {
 	 * @param address 地址信息
 	 * @return 成功返回一个User对象，否则返回null
 	 */
-	public List<Map<Integer, Object>> query(Address address)throws Exception;
+	public List<?> query(Address address)throws Exception;
 
 	/**
 	 * 修改用户地址信息

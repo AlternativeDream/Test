@@ -75,16 +75,13 @@
                     </div>
                     <div class="maaddress">
                         <div class="addaddress">
-                            <input id="address" class="address" type="text" placeholder="收件地址" />
-                            <input id="addressee" class="addressee" type="text" placeholder="收件人" />
-                            <input id="addtel" class="addtel" type="text" placeholder="联系电话" />
+                            <input id="address" type="text" placeholder="收件地址" />
+                            <input id="addressee" type="text" placeholder="收件人" />
+                            <input id="addtel" type="text" placeholder="联系电话" />
                             <button class="onadd" type="button">添加地址</button>
                         </div>
                         <div class="address-head">
                             <span>收件地址</span><span>收件人</span><span>联系电话</span><span>操作</span>
-                        </div>
-                        <div class="myaddress">
-                            <span>福建省泉州市晋江市长兴路200号</span><span>XXX</span><span>1234567890123</span><span class="deladdress"><a href="#"><i class="fa fa-trash"></i></a></span>
                         </div>
                     </div>
                     <div class="modifypsd">
@@ -106,14 +103,19 @@
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script id="aaddress" type="text/html">
             <div class="myaddress">
-                <span>{{address}}</span><span>{{addressee}}</span><span>{{addtel}}</span><span class="deladdress"><a href="#"><i class="fa fa-trash"></i></a></span>
+                <span class="address">{{address}}</span><span class="addressee">{{addressee}}</span><span class="addtel">{{addtel}}</span><span class="deladdress"><a><i class="fa fa-trash addressId">{{addressId}}</i></a></span>
             </div>
         </script>
         <script type="text/javascript">
+        	/* 全局变量  */
+        	var addresslist;
+        	
+        	/* 初始化  */
             $(document).ready(function(){
                 bindEven();
                 addmes();
                 hasOrder();
+                userdata();
                 userdefault();
             });
             
@@ -142,37 +144,57 @@
                     }
                 });
                 
-                $(".maaddress").on('click','.deladdress',function(e){
+                $(".maaddress").on('click','.deladdress',function(){
+                    var useraddress = $(this).parent();
+                    var addressId = useraddress.find(".addressId").text();
+                    var address = useraddress.find(".address").text();
+                    var addressee = useraddress.find(".addressee").text();
+                    var addtel = useraddress.find(".addtel").text();
+
+                    var deladdress = {
+                    		"addressId": addressId,
+                    		"address": address,
+                    		"addressee": addressee,
+                    		"addtel": addtel
+                    };
+ 
+                    var deleteaddress = $.ajax({
+                    	type: 'POST',
+                    	url: 'DelAddress',
+                    	data: deladdress,
+                    	dataType: 'json',
+                    	success: function(data){
+                    		addresslist = data;
+                    	}
+                    });
+                    
                     $(this).parent().remove();
                     addmes();
                     e.stopPropagation();
                 });
                 
                 $(".onadd").click(function(){
-                    var address = $(".address").val();
-                    var addressee = $(".addressee").val();
-                    var addtel = $(".addtel").val();
+                    var address = $("#address").val();
+                    var addressee = $("#addressee").val();
+                    var addtel = $("#addtel").val();
+                    
+                    var newaddress = {
+                        	"address": address,
+                        	"addressee": addressee,
+                        	"addtel": addtel
+                        };
                     
                     var addaddress = $.ajax({
                     	type: "POST",
                     	url: "NewAddress",
-                    	data: {
-                    		"address" : address,
-                            "addressee" : addressee,
-                            "addtel" : addtel
-                    	},
+                    	data: newaddress,
                     	dataType:"json",
                         success : function(data){
+                        	addresslist = data;
                         }
                     });
                     
-                    var newaddress = {
-                    	"address": address,
-                    	"addressee": addressee,
-                    	"addtel": addtel
-                    };
-                    
-                    html = template("aaddress",newaddress);
+                    var html = template("aaddress",newaddress);
                     $("#noadd").remove();
                     $(".maaddress").append(html);
                 });
@@ -271,6 +293,35 @@
             		$("input[name='sex'][value='" + sex + "']").prop("checked","checked");
             	}
             	
+            }
+            /* 初始化用户数据  */
+            function userdata(){
+            	/* 用户订单数据  */
+            	/* 用户地址数据  */
+            	var userId = "${User.userId}";
+            	var useraddresslist = $.ajax({
+            		type: 'POST',
+            		url: 'getAddress',
+            		data: {
+            			"userId":userId
+            		},
+            		dataType: 'json',
+            		success: function(data){
+            			addresslist = data;
+            			var html = "";
+            			
+            			if(addresslist.length > 0){
+            				
+            				for(var i = 0; i < addresslist.length;i++){
+            					html = html + template("aaddress",addresslist[i]);
+            				}
+            				
+            				
+                            $("#noadd").remove();
+                            $(".maaddress").append(html);
+            			}
+            		}
+            	});
             }
             
         </script>

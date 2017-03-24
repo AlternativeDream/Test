@@ -200,19 +200,18 @@
         <script id="wares" type="text/html">
             <div class="ware">
                 <div class="ware-title">
-                    <span>商品编号：{{wareId}}</span>
+                    <span>商品编号：<a class="ware-id">{{wareId}}<a></span>
                     <span></span>
                     <span></span>
-                    <a href="#">商品备注</a>
                 </div>
                 <div class="ware-mes">
-                    <span><p class="vm">{{wareName}}</p></span>
-                    <span><p class="vm">{{warePrice}}</p></span>
-                    <span><p class="vm">{{description}}</p></span>
-                    <span><p class="vm">{{wareKind}}</p></span>
-                    <span><p class="vm">{{warekey}}</p></span>
-                    <span><p class="vm">{{status}}</p></span>
-                    <span><p class="vm"><input class="btn-add" type="button" value="修改信息" /></p></span>
+                    <span><p class="wareName vm">{{wareName}}</p></span>
+                    <span><p class="warePrice vm">{{warePrice}}</p></span>
+                    <span><p class="description vm">{{description}}</p></span>
+                    <span><p class="wareKind vm">{{wareKind}}</p></span>
+                    <span><p class="warekey vm">{{warekey}}</p></span>
+                    <span><p class="status vm">{{status}}</p></span>
+                    <span><p class="vm"><input class="btn-update" type="button" value="修改信息" /></p></span>
                 </div>
             </div>
         </script>
@@ -220,11 +219,22 @@
         <script type="text/javascript" src="js/template.js"></script>
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript">
+        
+        	/* 全局变量  */
+        	var orderlist;
+        	var warelist;
+        	var userlist;
+        	var thiswareid;
+        	var thisware;
+        
+        	/* 初始化 */
             $(document).ready(function(){
                 bindEven();
+                loaddata();
                 $(".orders").css("display","block");;
             });
             
+        	/* 绑定事件组 */
             function bindEven(){
                 $(".flmenu").click(function(){
                     $(this).addClass("onthis").siblings().removeClass("onthis");
@@ -246,26 +256,6 @@
                     $(".main-order").css("display","none");
                     $(".main-ware").css("display","block");
                     $(".main-user").css("display","none");
-                    
-                    var getWares = $.ajax({
-                        type: 'POST',
-                        url: 'getWares',
-                        data: {},
-                        datatype: 'json',
-                        success: function(data){
-                        	var s = data;
-                        	var html = "";
-                        	
-                        	for(var i = 0; i < data.length;i++){
-                        		html = html + template("wares",data[i]);
-                        	}
-                        	
-                        	$(".wares-list").append(html);
-                        	
-                        },error:function(data){
-                        	alert(data);
-                        }
-                    });
                 });
                 
                 $("#users-manage").click(function(){
@@ -289,7 +279,7 @@
                 	var wareKind = addnew.find(".wareKind").val();
                 	var warekey = addnew.find(".warekey").val();
                 	var wareimg = addnew.find(".wareimg").val();
-                	alert(wareName);
+
                 	var addware = $.ajax({
                 		type: "POST",
                 		url: "AddWare",
@@ -315,14 +305,118 @@
                     
                 });
                 
-                $(".wares-list").on('click','.btn-add',function(){
+                $(".wares-list").on('click','.btn-update',function(){
+                	thiswareid = $(this).parent().parent().parent().parent().find(".ware-id").text();
+                	var updateware = $(".updateware");
+                	thisware = $(this).parent().parent().parent();
+                	alert(thiswareid);
                     $(".updateware").fadeIn();
+                    
+                    for(var i = 0; i < warelist.length;i++){
+                    	if(thiswareid == warelist[i].wareId){
+                    		updateware.find(".wareName").val(warelist[i].wareName);
+                            updateware.find(".warePrice").val(warelist[i].warePrice);
+                            updateware.find(".description").val(warelist[i].description);
+                         	updateware.find(".wareKind").val(warelist[i].wareKind);
+                         	updateware.find(".warekey").val(warelist[i].warekey);
+                         	updateware.find(".wareimg").val(warelist[i].wareimg);
+                         	
+                         	if(warelist[i].status == 1){
+                         		updateware.find(".status").options[0].selected = true;
+                         	}else{
+                         		updateware.find(".status").options[1].selected = true;
+                         	}
+                    	}
+                    }
+                    
                 });
                 
                 $("#updateware").click(function(){
+                	var updateware = $(".updateware");
+                	var wareName = updateware.find(".wareName").val();
+                    var warePrice = updateware.find(".warePrice").val();
+                    var description = updateware.find(".description").val();
+                 	var wareKind = updateware.find(".wareKind").val();
+                 	var warekey = updateware.find(".warekey").val();
+                 	var wareimg = updateware.find(".wareimg").val();
+                 	var status = updateware.find(".status").val();
+                 	
+                 	var ware = {
+                 			"wareId": thiswareid,
+                 			"wareName": wareName,
+                 			"warePrice": warePrice,
+                 			"description": description,
+                 			"wareKind": wareKind,
+                 			"warekey": warekey,
+                 			"wareimg": wareimg,
+                 			"status": status,
+                 	};
+                	
+                 	var updateware = $.ajax({
+                 		type: 'POST',
+                 		url: 'ModifyWare',
+                 		data: ware,
+                 		datatype: 'text',
+                 		success: function(data){
+                 			alert(data);
+                 			thisware.find(".wareName").text(wareName);
+                 			thisware.find(".warePrice").text(warePrice);
+                 			thisware.find(".description").text(description);
+                 			thisware.find(".wareKind").text(wareKind);
+                 			thisware.find(".warekey").text(warekey);
+                 			thisware.find(".wareimg").text(wareimg);
+                         	
+                         	if(status == 1){
+                         		thisware.find(".status").options[0].selected = true;
+                         	}else{
+                         		thisware.find(".status").options[1].selected = true;
+                         	}
+                         	
+                         	for(var i = 0; i < warelist.length;i++){
+                            	if(thiswareid == warelist[i].wareId){
+                            		warelist[i].wareName = wareName;
+                            		warelist[i].warePrice = warePrice;
+                            		warelist[i].description = description;
+                            		warelist[i].wareKind = wareKind;
+                            		warelist[i].warekey = warekey;
+                            		warelist[i].wareimg = wareimg;
+                            		warelist[i].status = status;
+                            	}
+                            }
+                 		}
+                 	});
+                 	
                     $(".updateware").fadeOut();
                 });
             }
+        	
+        	/* 初始化数据  */
+        	function loaddata(){
+        		/* 加载订单数据  */
+        		
+        		/* 加载商品数据  */
+        		var getWares = $.ajax({
+	                type: 'POST',
+	                url: 'getWares',
+	                data: {},
+	                datatype: 'json',
+	                success: function(data){
+	                	warelist = data;
+	                	var html = "";
+	                	
+	                	for(var i = 0; i < data.length;i++){
+	                		html = html + template("wares",warelist[i]);
+	                	}
+	                	
+	                	$(".wares-list").append(html);
+	                	
+	                },error:function(data){
+	                	alert(data);
+	                }
+	            });
+        		
+        		/* 加载用户数据  */
+        	}
             
         </script>
 	</body>

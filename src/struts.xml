@@ -39,8 +39,13 @@
 		
 		<!-- 添加地址 -->
 		<action name="NewAddress" class="AddressAction" method="NewAddress" >
-			<result></result>
 		</action>
+		
+		<!-- 获得地址 -->
+		<action name="getAddress" class="AddressAction" method="getAddress"></action>
+		
+		<!-- 删除地址 -->
+		<action name="DelAddress" class="AddressAction" method="DelAddress"></action>
 		
 		<!-- 新增商品 -->
 		<action name="AddWare" class="WareAction" method="AddWare" >
@@ -50,6 +55,9 @@
 		<!-- 获取商品数据 -->
 		<action name="getWares" class="WareAction" method="getWares" >
 		</action>
+		
+		<!-- 修改商品信息 -->
+		<action name="ModifyWare" class="WareAction"  method="ModifyWare" ></action>
 
 	</package>
 </struts>

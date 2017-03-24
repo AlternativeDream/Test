@@ -12,16 +12,16 @@ package System.User;
  */
 public class Address {
 	private Integer addressId;
-	private User user;
+	private Integer userId;
 	private String address;
 	private String addressee; //收件人
 	private String addtel; //收件人电话
 	
 	public Address() {}
 
-	public Address(Integer addressId, User user, String address, String addressee, String addtel) {
+	public Address(Integer addressId, Integer userId, String address, String addressee, String addtel) {
 		this.addressId = addressId;
-		this.user = user;
+		this.userId = userId;
 		this.address = address;
 		this.addressee = addressee;
 		this.addtel = addtel;
@@ -37,19 +37,13 @@ public class Address {
 		this.addressId = addressId;
 	}
 
-
-
-	public User getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
-
-
 
 	public String getAddress() {
 		return address;
@@ -79,9 +73,10 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", user=" + user + ", address=" + address + ", addressee="
+		return "Address [addressId=" + addressId + ", userId=" + userId + ", address=" + address + ", addressee="
 				+ addressee + ", addtel=" + addtel + "]";
 	}
+
 	
 	
 	

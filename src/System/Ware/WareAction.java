@@ -38,6 +38,7 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 	HttpSession session = ServletActionContext.getRequest().getSession();
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response = ServletActionContext.getResponse();
+	PrintWriter out;
 	
 	private Ware ware;
 
@@ -74,10 +75,33 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 			rsp = JSONArray.fromObject(list);
 			response.setContentType("application/json;charset=UTF-8");
 			
-			PrintWriter out = response.getWriter();
+			out = response.getWriter();
 			out.print(rsp.toString());
 			out.flush();
 			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public String ModifyWare(){
+		String result = null;
+		
+		try{
+			if(ware !=null ){
+				response.setContentType("text/html;charset=UTF-8");
+				out = response.getWriter();
+				if(wareService.modify(ware) > 0){
+					out.print("修改成功！");
+				}else{
+					out.print("修改失败！");
+				}
+				out.flush();
+				out.close();
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

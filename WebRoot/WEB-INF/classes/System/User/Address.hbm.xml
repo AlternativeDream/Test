@@ -3,10 +3,11 @@
 <hibernate-mapping>
 	<class name="System.User.Address" table="address" >
 		<id name="addressId" type="integer" >
+			<column name="addressId"></column>
+			<generator class="native"></generator>
 		</id>
 		
-		<many-to-one name="user" class="System.User.User" column="userId" ></many-to-one>
-		
+		<property name="userId" type="integer" column="userId"></property>
 		<property name="address" type="string" column="address" />
 		<property name="addressee" type="string" column="addressee" />
 		<property name="addtel" type="string" column="addtel" />
