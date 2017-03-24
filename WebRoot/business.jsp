@@ -253,8 +253,17 @@
                         data: {},
                         datatype: 'json',
                         success: function(data){
-                        	var warelist = data;
-                        	alert(warelist);
+                        	var s = data;
+                        	var html = "";
+                        	
+                        	for(var i = 0; i < data.length;i++){
+                        		html = html + template("wares",data[i]);
+                        	}
+                        	
+                        	$(".wares-list").append(html);
+                        	
+                        },error:function(data){
+                        	alert(data);
                         }
                     });
                 });

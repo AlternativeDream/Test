@@ -49,7 +49,6 @@
 		
 		<!-- 获取商品数据 -->
 		<action name="getWares" class="WareAction" method="getWares" >
-			<result></result>
 		</action>
 
 	</package>

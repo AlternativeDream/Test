@@ -1,5 +1,6 @@
 package System.Ware;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +60,7 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 	}
 	
 	public String getWares(){
-		String result = "success";
+		String result = null;
 		
 		try{
 			List<?> list;
@@ -71,7 +72,12 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 			
 			list = wareService.query(ware);
 			rsp = JSONArray.fromObject(list);
-			response.getWriter().write(rsp.toString());
+			response.setContentType("application/json;charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			out.print(rsp.toString());
+			out.flush();
+			out.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
