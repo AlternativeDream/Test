@@ -87,10 +87,8 @@ public class AddressAction extends ActionSupport implements ModelDriven<Address>
 			
 			user = (User) session.getAttribute("User");
 			address.setUserId(user.getUserId());
-			
+
 			if(addressService.add(address) > 0){
-				address = new Address();
-				address.setUserId(user.getUserId());
 				list = addressService.query(address);
 				
 				rsp = JSONArray.fromObject(list);
@@ -121,6 +119,10 @@ public class AddressAction extends ActionSupport implements ModelDriven<Address>
 			
 			user = (User) session.getAttribute("User");
 			address.setUserId(user.getUserId());
+			
+			if(address.getAddressId() == null || address.getAddressId().equals("")){
+				address = (Address) addressService.query(address).get(0);
+			}
 			
 			if(addressService.delete(address) > 0){
 				address = new Address();

@@ -103,12 +103,12 @@
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script id="aaddress" type="text/html">
             <div class="myaddress">
-                <span class="address">{{address}}</span><span class="addressee">{{addressee}}</span><span class="addtel">{{addtel}}</span><span class="deladdress"><a><i class="fa fa-trash addressId">{{addressId}}</i></a></span>
+                <span class="address">{{address}}</span><span class="addressee">{{addressee}}</span><span class="addtel">{{addtel}}</span><span class="deladdress"><a href="javascript:void(0)"><i class="fa fa-trash"></i></a></span>
             </div>
         </script>
         <script type="text/javascript">
         	/* 全局变量  */
-        	var addresslist;
+        	var addresslist = {};
         	
         	/* 初始化  */
             $(document).ready(function(){
@@ -146,13 +146,11 @@
                 
                 $(".maaddress").on('click','.deladdress',function(){
                     var useraddress = $(this).parent();
-                    var addressId = useraddress.find(".addressId").text();
                     var address = useraddress.find(".address").text();
                     var addressee = useraddress.find(".addressee").text();
                     var addtel = useraddress.find(".addtel").text();
 
                     var deladdress = {
-                    		"addressId": addressId,
                     		"address": address,
                     		"addressee": addressee,
                     		"addtel": addtel
@@ -177,7 +175,8 @@
                     var address = $("#address").val();
                     var addressee = $("#addressee").val();
                     var addtel = $("#addtel").val();
-                    
+                    var html = "";
+
                     var newaddress = {
                         	"address": address,
                         	"addressee": addressee,
@@ -194,7 +193,7 @@
                         }
                     });
                     
-                    var html = template("aaddress",newaddress);
+                    html = template("aaddress",newaddress);
                     $("#noadd").remove();
                     $(".maaddress").append(html);
                 });

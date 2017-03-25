@@ -79,7 +79,13 @@ public class AddressDaoImp implements AddressDao {
 			String Hql = " from Address a where 1=1";
 			Query query = null;
 			
-			if(address.getUserId() != null && address.getUserId() != null && !address.getUserId().equals("")){
+			if(address.getUserId() != null && address.getAddress() != null && address.getAddressee() != null && address.getAddtel() != null){
+				Hql += " and a.userId=? and a.address=? and a.addressee=? and a.addtel=?";
+				query = getSession().createQuery(Hql).setInteger(0, address.getUserId()).setString(1,address.getAddress()).setString(2,address.getAddressee()).setString(3,address.getAddtel());
+			}else if(address.getUserId() != null && address.getAddressId() != null){
+				Hql += " and a.userId=? and a.addressId=?";
+				query = getSession().createQuery(Hql).setInteger(0, address.getUserId()).setInteger(1, address.getAddressId());
+			}else if(address.getUserId() != null && address.getUserId() != null && !address.getUserId().equals("")){
 				Hql += " and a.userId=?";
 				query = getSession().createQuery(Hql).setInteger(0, address.getUserId());
 			}else{
