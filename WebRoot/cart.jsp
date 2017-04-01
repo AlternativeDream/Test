@@ -56,8 +56,25 @@
                 <span>Copyright © 一元购美食特卖商城 2016-2017，All Rights Reserved</span>
             </div>
         </div>
+        
+        <!-- 商品模板  -->
+        <script type="text/html">
+			<div id="{{wareId}}" class="cart-ware">
+            	<span><img src="{{wareimg}}" />{{wareName}} {{description}}</span>
+            	<span class="wareprice">¥{{warePrice}}</span>
+            	<span>
+                	<input class="minusware" type="button" value="-" />
+                	<input class="warenum" type="text" readonly="true" value="{{queity}}" />
+                	<input class="addware" type="button" value="+" />
+                	</span>
+            	<span class="waresum">¥{{totalPrice}}</span>
+            	<span class="delware"><a href="#"><i class="fa fa-trash"></i></a></span>
+			</div>
+		</script>
+        
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript">
+        	var warelist;
             $(document).ready(function(){
                 bindEven();
                 addmes();
@@ -91,10 +108,62 @@
             
             /* 判断购物车是否有商品 */
             function addmes(){
-                if($(".cart").children(".cart-ware").length ==0 ){
-                        $(".cart").append('<div class="cart-ware"><span id="mesware">您的购物车没有商品哦 <a href="index.jsp">前去购买</a></span></div>');
+                var cart = LocalStorage.getItem("shoppingcart");
+                if( cart == "" || cart == null ){
+                    $(".cart").append('<div class="cart-ware"><span id="mesware">您的购物车没有商品哦 <a href="index.jsp">前去购买</a></span></div>');
+                    return null;
+            	}
+                
+                cart = cart.split(",");
+                
+                var un = "";
+                
+                for(var i = 0; i < cart.length;i++){
+                	un = un + JSON.parse(cart[i]).wareId;
                 }
+                
+                $.ajax({
+                	type: 'POST',
+                	url: '',
+                	data: un,
+                	datatype: 'json',
+                	success: function(data){
+                		warelist = data;
+                	},error: function(data){
+                		alert(data);
+                		return null;
+                	}
+                });
+                
+                var ware = {
+                		"wareId": "",
+                		"wareimg": "",
+                		"wareName": "",
+                		"description": "",
+                		"warePrice": "",
+                		"queity": "",
+                		"totalPrice": ""
+                };
+                
+                for(var j = 0; j < warelist.length;j++){
+                	ware.wareId = warelist[j].wareId;
+                	ware.wareimg = warelist[j].wareimg;
+                	ware.wareName = warelist[j].wareName;
+                	ware.description = warelist[j].description;
+                	ware.warePrice = warelist[j].warePrice;
+                	
+                	for(var i = 0; i < cart.length;i++){
+                		if(warelist[j].wareId == cart[i].wareId){
+                			ware.queity = cart[i].queity;
+                			break;
+                		}
+                	}
+                	
+                	ware.totalPrice = parseInt(ware.warePrice) * parseInt(ware.queity);
+                }
+                
             }
+            
         </script>
 	</body>
 </html>

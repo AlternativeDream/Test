@@ -29,11 +29,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div id="header">
                 <div id="header-nav">
                     <ul>
-                        <li><a href="login.jsp">登录</a></li>
-                        <li><a href="register.jsp">注册</a></li>
+                        <li id="gologin"><a href="login.jsp">登录</a></li>
+                        <li id="goregister"><a href="register.jsp">注册</a></li>
+                        <li id="isLogin" style="display:none" >欢迎您！ ${User.userName}</li>
                         <li><a href="info.jsp">我的订单</a></li>
-                        <li><a href="#">购物车</a></li>
-                        <li id="warekind"><a href="#">商品分类</a></li>
+                        <li><a href="cart.jsp">购物车</a></li>
+                        <li id="gomanage"><a href="javascript:void(0)">商品管理</a></li>
                     </ul>
                 </div>
                 <div class="nav-nextli">
@@ -95,6 +96,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                 </div>
                 <div id="wares">
+                	<div class="onware">
+                        <div class="closeware"><i class="fa fa-times"></i></div>
+                        <div id="commodity">
+                            <div id="commodity-img">
+                                <img id="ware-img" src="images/snacks/CgQCslNUvumAIQkIAAMUZ63sQDw67401_230-230.jpg" />
+                            </div>
+                            <div id="information">
+                                <input id="ware-Id" type="hidden" value="" />
+                                <h4 id="ware-info">原味海苔冬萌功 PAPATONK 虾片</h4>
+                                <h3 id="ware-price">¥11.9</h3>
+                                <p>支持货到付款</p>
+                                <p>送货至XXX 现货</p>
+                                <p>17:30前完成订单，预计一天送达</p>
+                                <div class="wares-ware-btn">
+                                    <div class="ware-btn">
+                                        <input class="ware-num" type="text" readonly="true" value="1" />
+                                        <input class="ware-add" type="button" value="∧" />
+                                        <input class="ware-minus" type="button" value="∨" />
+                                    </div>
+                                    <button id="add-ware-cart" class="ware-cart" type="button">加入购物车</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="wares-kind">
                         <div class="wares-head">进口·零食/果干/坚果</div>
                         <div class="wares-main">
@@ -456,6 +481,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $(document).ready(function(){
                 $("#main").luara({width:"600",height:"240",interval:4500,selected:"seleted",deriction:"left"});
                 bindEvent();
+                //isLogin();
             });
             
             /* 绑定事件组 */
@@ -466,6 +492,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     html = template("navData",navPage[i]);
                     $("#nav-page").fadeIn();
                     $("#nav-page").html(html);
+                });
+                
+                $("#sider .btn").click(function(){
+                	location.href = "cart.jsp";
                 });
                 
                 $("#section").mouseleave(function(){
@@ -479,7 +509,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 $("#header").mouseleave(function(){
                     $(".nav-nextli").fadeOut();
                 });
+                
+                $(".thismouseover").click(function(){
+                    $(".onware").show();
+                });
+                
+                $(".closeware").click(function(){
+                    $(".onware").hide();
+                });
+                
+                $(".ware-add").click(function(){
+                    var num = parseInt($(this).prev().val());
+                    if(num < 99){
+                        $(this).prev().val(num+1);
+                        $(this).next().removeAttr("disabled");
+                    }else{
+                        $(this).attr({"disabled":"disabled"});
+                    }
+                     e.stopPropagation();
+                });
+                
+                $(".ware-minus").click(function(){
+                    var num = parseInt($(this).prev().prev().val());
+                    if(num > 1){
+                        $(this).prev().prev().val(num-1);
+                        $(this).prev().removeAttr("disabled");
+                    }else{
+                        $(this).attr({"disabled":"disabled"});
+                    }
+                     e.stopPropagation();
+                });
+                
+                $("#add-ware-cart").click(function(){
+                    var wareId = $("#ware-Id").val();
+                    var queity = $(this).prev().find(".ware-num").val();
+                    var cart = localStorage.getItem("shoppingcart");
+                    var wares = {
+                    		"wareId":wareId,
+                    		"queity":queity
+                    };
+                    
+                    if(cart == null || cart == ""){
+                        cart = JSON.stringify(wares);
+                    }else{
+                        cart = cart + "," + JSON.stringify(wares);
+                    }
+                    
+                    localStorage.setItem("shoppingcart",cart);
+                    alert("已加入购物车！");
+                    
+                });
             }
+            
+            /* 判断是否登录  */
+            function isLogin(){
+            	var user = "${User.userId}";
+            	
+            	if(user == null || user == ""){
+            		$("goLogin").css("display","inline-block");
+            		$("goregister").css("display","inline-block");
+            		$("isLogin").css("display","none");
+            	}else{
+            		$("goLogin").css("display","none");
+            		$("goregister").css("display","none");
+            		$("isLogin").css("display","inline-block");
+            	}
+            }
+            
         </script>
   </body>
 </html>

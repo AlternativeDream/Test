@@ -125,14 +125,14 @@ a{
 }
 
 .search{
-    height: 40px;
+    height: 30px;
     width: 370px;
     border: 3px solid #FF8C69;
     padding-left: 30px;
 }
 
 .search-btn{
-    height: 46px;
+    height: 36px;
     width: 100px;
     background: #FF8C69;
     border: 3px solid #FF8C69;
@@ -316,9 +316,30 @@ a{
     margin-top: 10px;
 }
 
+.onware{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #FFF;
+    z-index: 10;
+    border-radius: 8px;
+    box-shadow: 0 -1px 10px rgba(0,0,0,.5);
+    display: none;
+}
+
+.closeware{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #F00;
+    font-size: 24px;
+}
+
 /* 推荐产品样式 */
 .wares-kind{
     width: 100%;
+    height: 100%;
     background: #F0F0F0;
     font-size: 0;
     padding-bottom: 10px;
@@ -550,11 +571,11 @@ a{
 
 /* 商品样式 */
 #commodity{
-    width: 1000px;
+    width: 800px;
     height: 480px;
     background: #FFF;
     font-size: 0;
-    margin-left: 60px;
+    margin-left: 10px;
 }
 
 #commodity-img{
@@ -563,8 +584,7 @@ a{
     display: inline-block;
     box-sizing: border-box;
     text-align: center;
-    margin-left: 40px;
-    margin-top: 10px;
+    margin-top: 30px;
     border: 3px solid #FF8C69;
 }
 
@@ -574,14 +594,14 @@ a{
 }
 
 #information{
-    width: 700px;
+    width: 380px;
     height: 500px;
     display: inline-block;
     box-sizing: border-box;
     font-size: 20px;
     position: absolute;
     top: 60px;
-    left: 500px;
+    left: 400px;
     padding-left: 40px;
 }
 
@@ -593,7 +613,7 @@ a{
 
 .wares-ware-btn{
     margin-top: 50px;
-    margin-left: 50px;
+
 }
 
 /*  用户信息总页
@@ -869,6 +889,7 @@ a{
     height: 80px;
     line-height: 80px;
     border-bottom: 1px solid #F0F0F0;
+    position: relative;
 }
 
 .cart-ware img{
@@ -904,3 +925,25 @@ a{
     width: 100%;
     text-align: center;
 }
+
+.cartcheck{
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    display: inline-block;
+}
+
+.cart-buy{
+    height: 50px;
+    width: 100px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #F00;
+    color: #FFF;
+    font-size: 20px;
+    border: none;
+    box-shadow: 0 -1px 2px rgba(0,0,0,.5)
+}
+
+

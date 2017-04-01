@@ -341,6 +341,15 @@
                  	var wareimg = updateware.find(".wareimg").val();
                  	var status = updateware.find(".status").val();
                  	
+                 	if(wareimg != null){
+                 		var arr = wareimg.split('.');
+                 		arr = arr[arr.length-1];
+                 		
+                 		if(arr != 'jpg' && arr != 'png'){
+                 			wareimg = null;
+                 		}
+                 	}
+                 	
                  	var ware = {
                  			"wareId": thiswareid,
                  			"wareName": wareName,

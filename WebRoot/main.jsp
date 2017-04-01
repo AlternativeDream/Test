@@ -35,7 +35,7 @@
                 <div id="header-search">
                     <a href="index.jsp"><div id="header-logo"></div></a>
                     <div id="search">
-                        <input class="search" type="text" placeholder="一元购" />
+                        <input id="wareQuery" class="search" type="text" placeholder="一元购" />
                         <button class="search-btn" type="submit">搜索</button>
                     </div>
                 </div>
@@ -206,11 +206,11 @@
         
         <!--商品模板-->
         <script id="ware-model" type="text/html">
-            <div class="ware">
-                <div class="ware-img"><img src="{{imgaddress}}" alt="{{description}}" /></div>
+            <div id="{{wareId}}" class="ware">
+                <div class="ware-img"><img src="{{wareimg}}" alt="{{description}}" /></div>
                 <div class="ware-buy">
-                    <h4>¥{{cost}}</h4>
-                    <p>{{description}}/p>
+                    <h4>¥{{warePrice}}</h4>
+                    <p>{{wareName}} {{description}}/p>
                     <div class="ware-buy-btn">
                         <input class="ware-num" type="text" readonly="true" value="0" />
                         <div class="ware-btn">
@@ -223,9 +223,11 @@
             </div>
         </script>
         <script type="text/javascript">
+        	var warelist;
             /* 初始化 */
             $(document).ready(function(){
                 bindEvent();
+                wareQuery();
             });
             
             /* 绑定事件组 */
@@ -259,6 +261,36 @@
                 $("#header").mouseleave(function(){
                     $(".nav-nextli").fadeOut();
                 });
+
+            }
+            
+            function wareQuery(){
+            	var warekey = $("#wareQuery").val();
+            	if(warekey != null && warekey !=""){
+            		var ware = {
+                			"warekey": warekey
+                	};
+            	}
+            	
+            	$.ajax({
+            		type: 'POST',
+            		url: 'getWares',
+            		data: ware,
+            		datatype: 'json',
+            		success: function(data){
+            			warelist = data;
+						var html = "";
+	                	
+	                	for(var i = 0; i < data.length;i++){
+	                		html = html + template("ware-model",warelist[i]);
+	                	}
+	                	
+	                	$(".main-wares").append(html);
+	                	
+	                },error:function(data){
+	                	alert(data);
+	                }
+            	});
             }
         </script>
 	</body>
