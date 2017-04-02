@@ -1,4 +1,4 @@
-package System.Ware;
+package System.Order;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -7,50 +7,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
+
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import System.Ware.Ware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import net.sf.json.JSONArray;
-
 /**
- * @TypeName：WareAction
- * @description： 商品视图控制器
+ * @TypeName：OrderAction
+ * @description：订单视图管理器
  * @author：AS
- * @createdTime:2017年3月23日
+ * @createdTime:2017年4月2日
  * @version：1.0.0.0
  * @history:
  *     1.
  *     2.
  */
-public class WareAction extends ActionSupport implements ModelDriven<Ware>{
+public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 
-	/**
-		 * @function
-		 * @param 
-		 * @return 
-	     */
-	private static final long serialVersionUID = 1L;
 	@Autowired
-	WareService wareService;
+	OrderService orderService;
 	HttpSession session = ServletActionContext.getRequest().getSession();
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response = ServletActionContext.getResponse();
 	PrintWriter out;
 	
-	private Ware ware;
-
+	private Order order;
+	
 	/**
-	 *  新增商品
+	 *  新增订单
 	 */
-	public String AddWare(){
-		String result = null;
+	public String AddOrder(){
+		String result = "success";
 		
-		try{	
-			if(wareService.add(ware) > 0){
-				session.setAttribute("message", "添加成功！");
+		try{
+			
+			if(orderService.add(order) > 0){
+				session.setAttribute("message", "购买完成！");
 			}
 			
 		}catch(Exception e){
@@ -60,18 +57,18 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 		return result;
 	}
 	
-	public String getWares(){
+	public String getOrders(){
 		String result = null;
 		
 		try{
 			List<?> list;
 			JSONArray rsp;
 			
-			if(ware == null){
-				ware = new Ware();
+			if(order == null){
+				order = new Order();
 			}
 			
-			list = wareService.query(ware);
+			list = orderService.query(order);
 			rsp = JSONArray.fromObject(list);
 			response.setContentType("application/json;charset=UTF-8");
 			
@@ -86,44 +83,14 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 		return result;
 	}
 	
-	public String getWareName(){
+	public String ModifyOrder(){
 		String result = null;
 		
 		try{
-			List<?> list;
-			JSONArray rsp;
-			String cart = request.getParameter("cart");
-			Integer[] wn = {};
-			
-			String[] carts = cart.split(",");
-			
-			for(int i = 0; i < carts.length;i++){
-				wn[i] = Integer.parseInt(carts[i]);
-			}
-			
-			list = wareService.querywareName(wn);
-			rsp = JSONArray.fromObject(list);
-			response.setContentType("application/json;charset=UTF-8");
-			
-			out = response.getWriter();
-			out.print(rsp.toString());
-			out.flush();
-			out.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-	
-	public String ModifyWare(){
-		String result = null;
-		
-		try{
-			if(ware !=null ){
+			if(order != null){
 				response.setContentType("text/html;charset=UTF-8");
 				out = response.getWriter();
-				if(wareService.modify(ware) > 0){
+				if(orderService.modify(order) > 0){
 					out.print("修改成功！");
 				}else{
 					out.print("修改失败！");
@@ -131,18 +98,17 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 				out.flush();
 				out.close();
 			}
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
 		return result;
 	}
-
+	
 	@Override
-	public Ware getModel() {
-		ware = new Ware();
-		return ware;
+	public Order getModel() {
+		order = new Order();
+		return null;
 	}
 
 }
