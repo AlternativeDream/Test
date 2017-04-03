@@ -24,17 +24,14 @@
 		
 		<!-- 验证用户名是否存在 -->
 		<action name="hasName" class="UserAction" method="hasName" >
-			<result></result>
 		</action>
 		
 		<!-- 修改用户信息 -->
 		<action name="Modify" class="UserAction" method="Modify" >
-			<result></result>
 		</action>
 		
 		<!-- 修改用户密码 -->
 		<action name="ModifyPassword" class="UserAction" method="ModifyPassword">
-			<result></result>
 		</action>
 		
 		<!-- 添加地址 -->
@@ -49,7 +46,6 @@
 		
 		<!-- 新增商品 -->
 		<action name="AddWare" class="WareAction" method="AddWare" >
-			<result></result>
 		</action>
 		
 		<!-- 获取商品数据 -->
@@ -58,6 +54,12 @@
 		
 		<!-- 修改商品信息 -->
 		<action name="ModifyWare" class="WareAction"  method="ModifyWare" ></action>
+		
+		<!-- 按ID查找商品数据 -->
+		<action name="getWareName" class="WareAction" method="getWareName"></action>
+		
+		<!--  -->
+		<action name="getCharge" class="OrderAction" method="getCharge"></action>
 
 	</package>
 </struts>

@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import System.Pay.PingPlusPlusService;
 import System.Ware.Ware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,6 +38,30 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 	PrintWriter out;
 	
 	private Order order;
+	
+	public String getCharge(){
+		String result = null;
+		
+		try{
+			String orderNo = "1234678";
+			int amount = 100;
+			String subject = "Subject";
+			String body = "Body";
+			String channel = "alipay";
+			String clientIP = "127.0.0.1";
+			
+			String charge = PingPlusPlusService.charge(orderNo, amount, subject, body, channel, clientIP);
+			
+			out = response.getWriter();
+			out.print(charge);
+			out.flush();
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
 	/**
 	 *  新增订单

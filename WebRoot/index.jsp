@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <img id="ware-img" src="images/snacks/CgQCslNUvumAIQkIAAMUZ63sQDw67401_230-230.jpg" />
                             </div>
                             <div id="information">
-                                <input id="ware-Id" type="hidden" value="" />
+                                <input id="ware-Id" type="hidden" value="1" />
                                 <h4 id="ware-info">原味海苔冬萌功 PAPATONK 虾片</h4>
                                 <h3 id="ware-price">¥11.9</h3>
                                 <p>支持货到付款</p>

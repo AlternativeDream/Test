@@ -50,6 +50,7 @@
                         <span class="delware"><a href="#"><i class="fa fa-trash"></i></a></span>
                     </div>
                 </div>
+                <div><input class="cart-buy" type="button" value="前去支付" /></div>
             </div>
             <!--底部标签-->
             <div id="footer">
@@ -58,7 +59,7 @@
         </div>
         
         <!-- 商品模板  -->
-        <script type="text/html">
+        <script id="catware" type="text/html">
 			<div id="{{wareId}}" class="cart-ware">
             	<span><img src="{{wareimg}}" />{{wareName}} {{description}}</span>
             	<span class="wareprice">¥{{warePrice}}</span>
@@ -73,6 +74,8 @@
 		</script>
         
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="js/template.js"></script>
+        <script type="text/javascript" src="js/pingpp.js"></script>
         <script type="text/javascript">
         	var warelist;
             $(document).ready(function(){
@@ -102,7 +105,18 @@
                 
                 $(".cart").on('click','.delware',function(){
                     $(this).parent().remove();
-                    addmes();
+                });
+                
+                $(".cart-buy").click(function(){
+                	$.ajax({
+                		type:'POST',
+                		url: 'getCharge',
+                		data: '{}',
+                		dataType: 'text',
+                		success: function(data){
+                			pingPay(data);
+                		}
+                	});
                 });
             }
             
@@ -124,7 +138,7 @@
                 
                 $.ajax({
                 	type: 'POST',
-                	url: '',
+                	url: 'getWareName',
                 	data: un,
                 	datatype: 'json',
                 	success: function(data){
@@ -145,6 +159,8 @@
                 		"totalPrice": ""
                 };
                 
+                var html = "";
+                
                 for(var j = 0; j < warelist.length;j++){
                 	ware.wareId = warelist[j].wareId;
                 	ware.wareimg = warelist[j].wareimg;
@@ -160,8 +176,24 @@
                 	}
                 	
                 	ware.totalPrice = parseInt(ware.warePrice) * parseInt(ware.queity);
+                	
+                	html = html + template('catware',ware);
                 }
                 
+                $(".cart").append(html);
+            }
+            
+            /* Ping++ */
+            function pingPay(charge){
+            	pingpp.createPayment(charge, function(result, err){
+            		if (result == "success") {
+            		    // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+            		} else if (result == "fail") {
+            		    // charge 不正确或者微信公众账号支付失败时会在此处返回
+            		} else if (result == "cancel") {
+            		    // 微信公众账号支付取消支付
+            		}
+            	});
             }
             
         </script>

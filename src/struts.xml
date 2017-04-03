@@ -57,6 +57,9 @@
 		
 		<!-- 按ID查找商品数据 -->
 		<action name="getWareName" class="WareAction" method="getWareName"></action>
+		
+		<!--  -->
+		<action name="getCharge" class="OrderAction" method="getCharge"></action>
 
 	</package>
 </struts>
