@@ -12,16 +12,17 @@
 	<body>
 		<div id="header">
             <a href="index.jsp"><div class="header-img"></div></a>
-            <h5>您好，欢迎光临！  <a href="login.html">请登录</a></h5>
+            <h5>您好，欢迎光临！  <a href="login.jsp">请登录</a></h5>
         </div>
         <div id="page">
             <div class="login-img"></div>
             <div class="login-form">
-                <form action="UserLogin">
+                <form action="UserLogin" method="post">
                     <h2>一元购美食登录</h2><a href="register.jsp">免费新注册</a>
                     <input name="loginname" class="logininput" type="text" placeholder="清输入用户名或手机号码" />
                     <input name="Password" class="logininput" type=password placeholder="请输入密码" />
                     <button class="subbtn" type="submit">登 录</button>
+                    ${addFieldError}
                 </form>
             </div>
         </div>

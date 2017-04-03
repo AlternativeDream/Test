@@ -43,14 +43,15 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 		String result = null;
 		
 		try{
-			String orderNo = "1234678";
-			int amount = 100;
+			String orderNo = order.getOrderId().toString();
+			int amount = Integer.parseInt(order.getTotalPrice());
 			String subject = "Subject";
 			String body = "Body";
-			String channel = "alipay";
+			String channel = "alipay_pc_direct";
 			String clientIP = "127.0.0.1";
+			String success_url = "localhost:8080/SnackMall/info/jsp";
 			
-			String charge = PingPlusPlusService.charge(orderNo, amount, subject, body, channel, clientIP);
+			String charge = PingPlusPlusService.charge(orderNo, amount, subject, body, channel, clientIP,success_url);
 			
 			out = response.getWriter();
 			out.print(charge);
@@ -67,12 +68,12 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 	 *  新增订单
 	 */
 	public String AddOrder(){
-		String result = "success";
+		String result = null;
 		
 		try{
 			
 			if(orderService.add(order) > 0){
-				session.setAttribute("message", "购买完成！");
+				this.getCharge();
 			}
 			
 		}catch(Exception e){

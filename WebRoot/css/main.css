@@ -106,6 +106,12 @@ a{
     background-position: center;
 }
 
+#isLogin{
+	font-size: 12px;
+	display: none;
+	width: 120px !important;
+}
+
 /* 头部搜索区样式 */
 #search{
     position: absolute;

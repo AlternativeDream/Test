@@ -17,11 +17,12 @@
             <div id="header">
                 <div id="header-nav">
                     <ul>
-                        <li><a href="#">登录</a></li>
-                        <li><a href="#">注册</a></li>
-                        <li><a href="#">我的订单</a></li>
-                        <li><a href="#">购物车</a></li>
-                        <li><a href="#">商品分类</a></li>
+                       <li id="gologin"><a href="login.jsp">登录</a></li>
+                        <li id="goregister"><a href="register.jsp">注册</a></li>
+                        <li id="isLogin" ><a>欢迎您！ ${User.userName}</a></li>
+                        <li><a href="info.jsp">我的订单</a></li>
+                        <li><a href="cart.jsp">购物车</a></li>
+                        <li><a href="javascript:void(0)">商品管理</a></li>
                     </ul>
                 </div>
                 <div id="header-search">
@@ -80,6 +81,7 @@
         	var warelist;
             $(document).ready(function(){
                 bindEven();
+                isLogin();
                 addmes();
             });
             
@@ -110,7 +112,7 @@
                 $(".cart-buy").click(function(){
                 	$.ajax({
                 		type:'POST',
-                		url: 'getCharge',
+                		url: 'AddOrder',
                 		data: '{}',
                 		dataType: 'text',
                 		success: function(data){
@@ -122,24 +124,27 @@
             
             /* 判断购物车是否有商品 */
             function addmes(){
-                var cart = LocalStorage.getItem("shoppingcart");
+                var cart = {"wareId":"1"};
+                console.log(cart);
                 if( cart == "" || cart == null ){
                     $(".cart").append('<div class="cart-ware"><span id="mesware">您的购物车没有商品哦 <a href="index.jsp">前去购买</a></span></div>');
                     return null;
             	}
                 
-                cart = cart.split(",");
+                //cart = cart.split(",");
                 
-                var un = "";
+                //var un = "";
                 
-                for(var i = 0; i < cart.length;i++){
-                	un = un + JSON.parse(cart[i]).wareId;
-                }
+                //for(var i = 0; i < cart.length;i++){
+                //	un = un + JSON.parse(cart[i]).wareId;
+                //}
                 
                 $.ajax({
                 	type: 'POST',
                 	url: 'getWareName',
-                	data: un,
+                	data: {
+                		"un": cart
+                	},
                 	datatype: 'json',
                 	success: function(data){
                 		warelist = data;
@@ -186,14 +191,23 @@
             /* Ping++ */
             function pingPay(charge){
             	pingpp.createPayment(charge, function(result, err){
-            		if (result == "success") {
-            		    // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-            		} else if (result == "fail") {
-            		    // charge 不正确或者微信公众账号支付失败时会在此处返回
-            		} else if (result == "cancel") {
-            		    // 微信公众账号支付取消支付
-            		}
+            		
             	});
+            }
+            
+            /* 判断是否登录  */
+            function isLogin(){
+            	var user = "${User.userId}";
+            	
+            	if(user == null || user == ""){
+            		$("#gologin").css("display","inline-block");
+            		$("#goregister").css("display","inline-block");
+            		$("#isLogin").css("display","none");
+            	}else{
+            		$("#gologin").css("display","none");
+            		$("#goregister").css("display","none");
+            		$("#isLogin").css("display","inline-block");
+            	}
             }
             
         </script>

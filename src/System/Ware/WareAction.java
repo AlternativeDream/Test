@@ -48,7 +48,15 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 	public String AddWare(){
 		String result = null;
 		
-		try{	
+		try{
+			String imgurl = ware.getWareimg();
+			String[] a = imgurl.split("\\\\");
+			String img = a[a.length-1];
+			
+			img = "images" + "/" + ware.getWareKind() + "/" + img;
+			
+			ware.setWareimg(img);
+			
 			if(wareService.add(ware) > 0){
 				session.setAttribute("message", "添加成功！");
 			}
@@ -92,7 +100,7 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 		try{
 			List<?> list;
 			JSONArray rsp;
-			String cart = request.getParameter("cart");
+			String cart = request.getParameter("un");
 			Integer[] wn = {};
 			
 			String[] carts = cart.split(",");

@@ -16,20 +16,21 @@
             <div id="header">
                 <div id="header-nav">
                     <ul>
-                        <li><a href="#">登录</a></li>
-                        <li><a href="#">注册</a></li>
-                        <li><a href="#">我的订单</a></li>
-                        <li><a href="#">购物车</a></li>
-                        <li id="warekind"><a href="#">商品分类</a></li>
+                        <li id="gologin"><a href="login.jsp">登录</a></li>
+                        <li id="goregister"><a href="register.jsp">注册</a></li>
+                        <li id="isLogin" ><a>欢迎您！ ${User.userName}</a></li>
+                        <li><a href="info.jsp">我的订单</a></li>
+                        <li><a href="cart.jsp">购物车</a></li>
+                        <li id="warekind"><a href="javascript:void(0)">商品管理</a></li>
                     </ul>
                 </div>
                 <div class="nav-nextli">
                     <ul>
-                        <li><a href="#">零食</a></li>
-                        <li><a href="#">甜点</a></li>
-                        <li><a href="#">饮料</a></li>
-                        <li><a href="#">酒水</a></li>
-                        <li><a href="#">冲饮</a></li>
+                        <li><a href="main.jsp?wareKind=snacks">零食</a></li>
+                        <li><a href="main.jsp?wareKind=candy">甜点</a></li>
+                        <li><a href="main.jsp?wareKind=coffee">饮料</a></li>
+                        <li><a href="main.jsp?wareKind=wine">酒水</a></li>
+                        <li><a href="main.jsp?wareKind=milk">冲饮</a></li>
                     </ul>
                 </div>
                 <div id="header-search">
@@ -210,7 +211,7 @@
                 <div class="ware-img"><img src="{{wareimg}}" alt="{{description}}" /></div>
                 <div class="ware-buy">
                     <h4>¥{{warePrice}}</h4>
-                    <p>{{wareName}} {{description}}/p>
+                    <p>{{wareName}} {{description}}</p>
                     <div class="ware-buy-btn">
                         <input class="ware-num" type="text" readonly="true" value="0" />
                         <div class="ware-btn">
@@ -228,6 +229,7 @@
             $(document).ready(function(){
                 bindEvent();
                 wareQuery();
+                isLogin();
             });
             
             /* 绑定事件组 */
@@ -291,6 +293,21 @@
 	                	alert(data);
 	                }
             	});
+            }
+            
+            /* 判断是否登录  */
+            function isLogin(){
+            	var user = "${User.userId}";
+            	
+            	if(user == null || user == ""){
+            		$("#gologin").css("display","inline-block");
+            		$("#goregister").css("display","inline-block");
+            		$("#isLogin").css("display","none");
+            	}else{
+            		$("#gologin").css("display","none");
+            		$("#goregister").css("display","none");
+            		$("#isLogin").css("display","inline-block");
+            	}
             }
         </script>
 	</body>

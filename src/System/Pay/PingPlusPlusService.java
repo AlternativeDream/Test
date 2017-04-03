@@ -38,14 +38,14 @@ public class PingPlusPlusService {
 			"9oLB+Rzp+FBe8TdXOEjrYjVrC9zKfvGmkm2DTnm8iD4=\n"+
 			"-----END RSA PRIVATE KEY-----\n";
 	
-	public static String charge(String orderNo,int amount,String subject,String body,String channel,String clientIP){
+	public static String charge(String orderNo,int amount,String subject,String body,String channel,String clientIP,String success_url){
 		
 		Pingpp.apiKey = apiKey;
 		
 		Pingpp.privateKey = privateKey;
 		PingPlusCharge charge = new PingPlusCharge(appId);
 		
-		String chargeString = charge.createCharge(orderNo, amount, subject, body, channel, clientIP);
+		String chargeString = charge.createCharge(orderNo, amount, subject, body, channel, clientIP, success_url);
 		return chargeString;
 	}
 }

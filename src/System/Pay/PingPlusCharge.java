@@ -25,7 +25,7 @@ public class PingPlusCharge {
 		this.appId = appId;
 	}
 	
-	public String createCharge(String orderNo, int amount, String subject, String body, String channel, String clientIP) {
+	public String createCharge(String orderNo, int amount, String subject, String body, String channel, String clientIP,String success_url) {
 		Pingpp.privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" +
 				"MIICXAIBAAKBgQCm8uJYFFEG2un8pdgLEFWdmoGAqXVjH1kqi8Qug4G9BAIR+VhZ" +
 				"CnbaXGjFLvz9XgSPeedHLDKKy0L+oAiqTAS8hfkV9ACuh2sOWMrrbQskvEvqIx65" +
@@ -47,11 +47,15 @@ public class PingPlusCharge {
         chargeMap.put("subject", subject);  
         chargeMap.put("body", body);  
         chargeMap.put("order_no", orderNo);  
-        chargeMap.put("channel","alipay");
+        chargeMap.put("channel",channel);
+        Map<String,String> extraMap = new HashMap<String, String>();
+        extraMap.put("success_url", success_url);
+        
+        chargeMap.put("extra", extraMap);
   
         Calendar cal = Calendar.getInstance();  
         cal.add(Calendar.MINUTE, 15);//15分钟失效  
-        long timestamp = cal.getTimeInMillis()/ 1000L;  
+        long timestamp = cal.getTimeInMillis()/ 1000L;
         chargeMap.put("time_expire", timestamp);  
   
         chargeMap.put("client_ip", clientIP); // 客户端 ip 地址(ipv4)  

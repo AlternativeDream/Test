@@ -148,7 +148,14 @@
                             <input class="wareName" type="text" placeholder="商品名" />
                             <input class="warePrice" type="text" placeholder="单价" />
                             <input class="description" type="text" placeholder="详情" />
-                            <input class="wareKind" type="text" placeholder="分类" />
+                            <select class="wareKind">
+                            	<option value="sancks" >零食</option>
+                            	<option value="candy" >糖果</option>
+                            	<option value="cooky" >糕点</option>
+                            	<option value="coffee" >饮料</option>
+                            	<option value="wine" >酒水</option>
+                            	<option value="milk" >牛奶</option>
+                            </select>
                             <input class="warekey" type="text" placeholder="关键字" />
                             <input class="wareimg" type="file" placeholder="图片" />
                             <input id="addnewware" type="button" value="添加新品">

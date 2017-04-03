@@ -58,8 +58,11 @@
 		<!-- 按ID查找商品数据 -->
 		<action name="getWareName" class="WareAction" method="getWareName"></action>
 		
-		<!--  -->
+		<!-- 支付操作 -->
 		<action name="getCharge" class="OrderAction" method="getCharge"></action>
+		
+		<!-- 生成订单 -->
+		<action name="AddOrder" class="OrderAction" method="AddOrder"></action>
 
 	</package>
 </struts>

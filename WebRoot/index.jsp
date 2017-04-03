@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <ul>
                         <li id="gologin"><a href="login.jsp">登录</a></li>
                         <li id="goregister"><a href="register.jsp">注册</a></li>
-                        <li id="isLogin" style="display:none" >欢迎您！ ${User.userName}</li>
+                        <li id="isLogin" ><a>欢迎您！ ${User.userName}</a></li>
                         <li><a href="info.jsp">我的订单</a></li>
                         <li><a href="cart.jsp">购物车</a></li>
                         <li id="gomanage"><a href="javascript:void(0)">商品管理</a></li>
@@ -39,11 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="nav-nextli">
                     <ul>
-                        <li><a href="#">零食</a></li>
-                        <li><a href="#">甜点</a></li>
-                        <li><a href="#">饮料</a></li>
-                        <li><a href="#">酒水</a></li>
-                        <li><a href="#">冲饮</a></li>
+                        <li><a href="main.jsp?wareKind=snacks">零食</a></li>
+                        <li><a href="main.jsp?wareKind=cooky">甜点</a></li>
+                        <li><a href="main.jsp?wareKind=coffee">饮料</a></li>
+                        <li><a href="main.jsp?wareKind=wine">酒水</a></li>
+                        <li><a href="main.jsp?wareKind=milk">冲饮</a></li>
                     </ul>
                 </div>
                 <div id="header-search">
@@ -419,10 +419,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script type="text/javascript" src="js/jquery.luara.0.0.1.min.js"></script>
         <script type="text/javascript" src="js/template.js"></script>
         <script id="navData" type="text/html">
-            <h4><a href="#">{{pageName}}</a></h4>
-            <p><span><a href="#">{{typeName1}}</a></span><span><a href="#">{{typeName2}}</a></span></p>
-            <p><span><a href="#">{{typeName3}}</a></span><span><a href="#">{{typeName4}}</a></span></p>
-            <p><span><a href="#">{{typeName5}}</a></span><span><a href="#">{{typeName6}}</a></span></p>
+            <h4><a href="{{url}}">{{pageName}}</a></h4>
+            <p><span><a href="{{url}}">{{typeName1}}</a></span><span><a href="{{url}}">{{typeName2}}</a></span></p>
+            <p><span><a href="{{url}}">{{typeName3}}</a></span><span><a href="{{url}}">{{typeName4}}</a></span></p>
+            <p><span><a href="{{url}}">{{typeName5}}</a></span><span><a href="{{url}}">{{typeName6}}</a></span></p>
         </script>
         <script type="text/javascript">
             /* 导航数据 */
@@ -435,6 +435,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "腰果",
                     "typeName5" : "芒果干",
                     "typeName6" : "肉干肉铺",
+                    "url": "main.jsp?wareKind=snacks"
                 },{
                     "pageName" : "进口饼干/糕点",
                     "typeName1" : "饼干",
@@ -443,6 +444,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "传统糕点",
                     "typeName5" : "西式糕点",
                     "typeName6" : "面包",
+                    "url": "main.jsp?wareKind=cooky"
                 },{
                     "pageName" : "进口糖果/巧克力",
                     "typeName1" : "巧克力",
@@ -451,6 +453,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "松露",
                     "typeName5" : "硬糖",
                     "typeName6" : "软糖",
+                    "url": "main.jsp?wareKind=candy"
                 },{
                     "pageName" : "进口牛奶/奶粉",
                     "typeName1" : "全脂",
@@ -459,6 +462,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "香蕉牛奶",
                     "typeName5" : "奶粉",
                     "typeName6" : "酸奶",
+                    "url": "main.jsp?wareKind=milk"
                 },{
                     "pageName" : "进口酒/饮料/水",
                     "typeName1" : "葡萄酒",
@@ -467,6 +471,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "碳酸饮料",
                     "typeName5" : "果蔬汁",
                     "typeName6" : "椰子水",
+                    "url": "main.jsp?wareKind=wine"
                 },{
                     "pageName" : "进口冲饮/咖啡/茶",
                     "typeName1" : "早餐谷物",
@@ -475,13 +480,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "绿茶",
                     "typeName5" : "速溶咖啡",
                     "typeName6" : "咖啡豆",
+                    "url": "main.jsp?wareKind=coffee"
                 }
             ]
             
             $(document).ready(function(){
                 $("#main").luara({width:"600",height:"240",interval:4500,selected:"seleted",deriction:"left"});
                 bindEvent();
-                //isLogin();
+                isLogin();
             });
             
             /* 绑定事件组 */
@@ -559,6 +565,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     alert("已加入购物车！");
                     
                 });
+                
+                $("#gomanage").click(function(){
+                	var userId = "${User.userId}";
+                	
+                	if(userId == null || userId == ""){
+                		return null;
+                	}else if(userId == "0"){
+                		window.location.href = "business.jsp";
+                	}
+                });
             }
             
             /* 判断是否登录  */
@@ -566,13 +582,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	var user = "${User.userId}";
             	
             	if(user == null || user == ""){
-            		$("goLogin").css("display","inline-block");
-            		$("goregister").css("display","inline-block");
-            		$("isLogin").css("display","none");
+            		$("#gologin").css("display","inline-block");
+            		$("#goregister").css("display","inline-block");
+            		$("#isLogin").css("display","none");
             	}else{
-            		$("goLogin").css("display","none");
-            		$("goregister").css("display","none");
-            		$("isLogin").css("display","inline-block");
+            		$("#gologin").css("display","none");
+            		$("#goregister").css("display","none");
+            		$("#isLogin").css("display","inline-block");
             	}
             }
             
