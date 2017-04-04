@@ -14,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * @TypeName：WareAction
@@ -100,10 +101,10 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 		try{
 			List<?> list;
 			JSONArray rsp;
-			String cart = request.getParameter("un");
-			Integer[] wn = {};
-			
+			String cart = request.getParameter("cart");
+			System.out.println(cart);
 			String[] carts = cart.split(",");
+			Integer[] wn = new Integer[carts.length];
 			
 			for(int i = 0; i < carts.length;i++){
 				wn[i] = Integer.parseInt(carts[i]);

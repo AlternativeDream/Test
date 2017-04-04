@@ -59,9 +59,9 @@ public class OrderDaoImp implements OrderDao {
 			String Hql = "select count(*) from Order o where 1=1";
 			Query query = null;
 			
-			if(order != null && !order.equals("") && order.getUser() != null && !order.getUser().equals("")){
+			if(order != null && !order.equals("") && order.getUserId() != null && !order.getUserId().equals("")){
 				Hql += " and o.user=?";
-				query = getSession().createQuery(Hql).setInteger(0, order.getUser().getUserId());
+				query = getSession().createQuery(Hql).setInteger(0, order.getUserId());
 			}else{
 				query = getSession().createQuery(Hql);
 			}
@@ -99,13 +99,13 @@ public class OrderDaoImp implements OrderDao {
 			String Hql = " from Order o where 1=1";
 			Query query = null;
 			
-			if(order.getUser() != null && order.getUser().getUserId() != null && !order.getUser().equals("")){
+			if(order.getUserId() != null && order.getUserId() != null && !order.getUserId().equals("")){
 				Hql += " and o.userId=?";
 				if(order.getData() != null && !order.getData().equals("")){
 					Hql += " and o.data=?";
-					query = getSession().createQuery(Hql).setInteger(0, order.getUser().getUserId()).setString(1, order.getData());
+					query = getSession().createQuery(Hql).setInteger(0, order.getUserId()).setString(1, order.getData());
 				}else{
-					query = getSession().createQuery(Hql).setInteger(0, order.getUser().getUserId());
+					query = getSession().createQuery(Hql).setInteger(0, order.getUserId());
 				}
 			}else if(order.getOrderId() != null && !order.getOrderId().equals("")){
 				Hql += " and o.orderId=?";

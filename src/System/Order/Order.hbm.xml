@@ -8,9 +8,9 @@
 			<generator class="native"></generator>
 		</id>
 		
-		<many-to-one name="user" class="System.User.User" column="userId" ></many-to-one>
-		<many-to-one name="address" class="System.User.Address" column="addressId"></many-to-one>
-		<many-to-one name="ware" class="System.Ware.Ware" column="wareId"></many-to-one>
+		<property name="userId" type="integer" column="userId" />
+		<property name="addressId" type="integer" column="addressId" />
+		<property name="wareId" type="integer" column="wareId" />
 		
 		<property name="data" type="string" generated="insert" >
 			<column name="data" sql-type="TIMESTAMP" default="CURRENT_TIMESTAMP"></column>

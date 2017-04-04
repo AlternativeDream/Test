@@ -51,12 +51,19 @@
                         <span class="delware"><a href="#"><i class="fa fa-trash"></i></a></span>
                     </div>
                 </div>
+                <div><h1>合计：<span id="tatol-ware"></span></h1></div>
                 <div><input class="cart-buy" type="button" value="前去支付" /></div>
             </div>
             <!--底部标签-->
             <div id="footer">
                 <span>Copyright © 一元购美食特卖商城 2016-2017，All Rights Reserved</span>
             </div>
+        </div>
+        <div class="getAddress">
+        	<span>请选择地址：</span>
+        	<select id="getAddress">
+        	</select>
+        	<button id="SubPay">确认支付</button>
         </div>
         
         <!-- 商品模板  -->
@@ -72,6 +79,10 @@
             	<span class="waresum">¥{{totalPrice}}</span>
             	<span class="delware"><a href="#"><i class="fa fa-trash"></i></a></span>
 			</div>
+		</script>
+		
+		<script id="addressoption" type="text/html" >
+			<option value="{{addressId}}" >{{address}} {{addressee}} {{addtel}}</option>
 		</script>
         
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -110,10 +121,43 @@
                 });
                 
                 $(".cart-buy").click(function(){
+                	var userId = "${User.userId}";
+                	var useraddresslist = $.ajax({
+                		asyne: false,
+                		type: 'POST',
+                		url: 'getAddress',
+                		data: {
+                			"userId":userId
+                		},
+                		dataType: 'json',
+                		success: function(data){
+                			addresslist = data;
+                			var html = "";
+                			
+                			if(addresslist.length > 0){
+                				
+                				for(var i = 0; i < addresslist.length;i++){
+                					html = html + template("addressoption",addresslist[i]);
+                				}
+                                $("#getAddress").append(html);
+                			}
+                		}
+                	});
+                	$(".getAddress").show();
+                });
+                
+                $("#SubPay").click(function(){
+                	var wares = localStorage.getItem("shoppingcart");
+                	var queity = localStorage.getItem("queity");
+                	var address = $("#getAddress").val();
                 	$.ajax({
                 		type:'POST',
                 		url: 'AddOrder',
-                		data: '{}',
+                		data: {
+                			"wares": wares,
+                			"queity": queity,
+                			"address": address
+                		},
                 		dataType: 'text',
                 		success: function(data){
                 			pingPay(data);
@@ -124,68 +168,60 @@
             
             /* 判断购物车是否有商品 */
             function addmes(){
-                var cart = {"wareId":"1"};
-                console.log(cart);
+                var cart = localStorage.getItem("shoppingcart");
+
                 if( cart == "" || cart == null ){
                     $(".cart").append('<div class="cart-ware"><span id="mesware">您的购物车没有商品哦 <a href="index.jsp">前去购买</a></span></div>');
                     return null;
             	}
                 
-                //cart = cart.split(",");
-                
-                //var un = "";
-                
-                //for(var i = 0; i < cart.length;i++){
-                //	un = un + JSON.parse(cart[i]).wareId;
-                //}
-                
                 $.ajax({
+                	asyne: false,
                 	type: 'POST',
                 	url: 'getWareName',
                 	data: {
-                		"un": cart
+                		"cart": cart
                 	},
                 	datatype: 'json',
                 	success: function(data){
                 		warelist = data;
+                		
+                		var ware = {
+                        		"wareId": "",
+                        		"wareimg": "",
+                        		"wareName": "",
+                        		"description": "",
+                        		"warePrice": "",
+                        		"queity": "",
+                        		"totalPrice": ""
+                        };
+                        
+                        var html = "";
+                        
+                        cart = localStorage.getItem("queity");
+                        cart = cart.split(",");
+                        var total = 0;
+                        
+                        for(var j = 0; j < warelist.length;j++){
+                        	ware.wareId = warelist[j].wareId;
+                        	ware.wareimg = warelist[j].wareimg;
+                        	ware.wareName = warelist[j].wareName;
+                        	ware.description = warelist[j].description;
+                        	ware.warePrice = warelist[j].warePrice;
+                       		ware.queity = cart[j];
+ 
+                        	ware.totalPrice = parseInt(ware.warePrice) * parseInt(ware.queity);
+                        	total = total + ware.totalPrice;
+                        	html = html + template('catware',ware);
+                        }
+                        
+                        $(".cart").append(html);
+                		$("#tatol-ware").text(total);
                 	},error: function(data){
                 		alert(data);
                 		return null;
                 	}
                 });
-                
-                var ware = {
-                		"wareId": "",
-                		"wareimg": "",
-                		"wareName": "",
-                		"description": "",
-                		"warePrice": "",
-                		"queity": "",
-                		"totalPrice": ""
-                };
-                
-                var html = "";
-                
-                for(var j = 0; j < warelist.length;j++){
-                	ware.wareId = warelist[j].wareId;
-                	ware.wareimg = warelist[j].wareimg;
-                	ware.wareName = warelist[j].wareName;
-                	ware.description = warelist[j].description;
-                	ware.warePrice = warelist[j].warePrice;
-                	
-                	for(var i = 0; i < cart.length;i++){
-                		if(warelist[j].wareId == cart[i].wareId){
-                			ware.queity = cart[i].queity;
-                			break;
-                		}
-                	}
-                	
-                	ware.totalPrice = parseInt(ware.warePrice) * parseInt(ware.queity);
-                	
-                	html = html + template('catware',ware);
-                }
-                
-                $(".cart").append(html);
             }
             
             /* Ping++ */

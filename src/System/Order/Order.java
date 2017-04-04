@@ -16,10 +16,10 @@ import System.Ware.Ware;
  */
 public class Order {
 	private Integer orderId;
-	private User user;
-	private Address address;
+	private Integer userId;
+	private Integer addressId;
 	private String data;
-	private Ware ware;
+	private Integer wareId;
 	private String quantity;
 	private String totalPrice;
 	
@@ -29,25 +29,7 @@ public class Order {
 	public Order(Integer orderId) {
 		this.orderId = orderId;
 	}
-
-	public Order(Integer orderId, User user) {
-		this.orderId = orderId;
-		this.user = user;
-	}
-
-	public Order(Integer orderId, User user, Ware ware) {
-		this.orderId = orderId;
-		this.user = user;
-		this.ware = ware;
-	}
-
-	public Order(Integer orderId, User user, Address address, Ware ware) {
-		this.orderId = orderId;
-		this.user = user;
-		this.address = address;
-		this.ware = ware;
-	}
-
+	
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -56,12 +38,28 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Integer addressId) {
+		this.addressId = addressId;
+	}
+
+	public Integer getWareId() {
+		return wareId;
+	}
+
+	public void setWareId(Integer wareId) {
+		this.wareId = wareId;
 	}
 
 	public String getData() {
@@ -70,22 +68,6 @@ public class Order {
 
 	public void setData(String data) {
 		this.data = data;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Ware getWare() {
-		return ware;
-	}
-
-	public void setWare(Ware ware) {
-		this.ware = ware;
 	}
 
 	public String getQuantity() {
@@ -106,9 +88,11 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", user=" + user + ", address=" + address + ", data=" + data + ", ware="
-				+ ware + ", quantity=" + quantity + ", totalPrice=" + totalPrice + "]";
+		return "Order [orderId=" + orderId + ", userId=" + userId + ", addressId=" + addressId + ", data=" + data
+				+ ", wareId=" + wareId + ", quantity=" + quantity + ", totalPrice=" + totalPrice + "]";
 	}
+
+	
 
 
 	

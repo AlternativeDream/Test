@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <img id="ware-img" src="images/snacks/CgQCslNUvumAIQkIAAMUZ63sQDw67401_230-230.jpg" />
                             </div>
                             <div id="information">
-                                <input id="ware-Id" type="hidden" value="1" />
+                                <input id="ware-Id" type="hidden" value="3" />
                                 <h4 id="ware-info">原味海苔冬萌功 PAPATONK 虾片</h4>
                                 <h3 id="ware-price">¥11.9</h3>
                                 <p>支持货到付款</p>
@@ -550,20 +550,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     var wareId = $("#ware-Id").val();
                     var queity = $(this).prev().find(".ware-num").val();
                     var cart = localStorage.getItem("shoppingcart");
-                    var wares = {
-                    		"wareId":wareId,
-                    		"queity":queity
-                    };
+                    var wares = localStorage.getItem("queity");
                     
                     if(cart == null || cart == ""){
-                        cart = JSON.stringify(wares);
+                        cart = wareId;
+                        wares = queity;
                     }else{
-                        cart = cart + "," + JSON.stringify(wares);
+                        cart = cart + "," + wareId;
+                        wares = wares + "," + queity;
                     }
                     
                     localStorage.setItem("shoppingcart",cart);
+                    localStorage.setItem("queity",wares);
                     alert("已加入购物车！");
-                    
+                    $(".closeware").click();
                 });
                 
                 $("#gomanage").click(function(){

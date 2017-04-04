@@ -13,7 +13,11 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import System.Pay.PingPlusPlusService;
+import System.User.Address;
+import System.User.AddressService;
+import System.User.User;
 import System.Ware.Ware;
+import System.Ware.WareService;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -30,8 +34,18 @@ import com.opensymphony.xwork2.ModelDriven;
  */
 public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 
+	/**
+		 * @function
+		 * @param 
+		 * @return 
+	     */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	WareService wareService;
+	@Autowired
+	AddressService addressService;
 	HttpSession session = ServletActionContext.getRequest().getSession();
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response = ServletActionContext.getResponse();
@@ -71,10 +85,37 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 		String result = null;
 		
 		try{
+			String wares = request.getParameter("wares");
+			String queity = request.getParameter("queity");
+			Integer addressId = Integer.parseInt(request.getParameter("address"));
+			User user = (User) request.getAttribute("User");
 			
-			if(orderService.add(order) > 0){
-				this.getCharge();
+			String[] w = wares.split(",");
+			String[] q = queity.split(",");
+			Integer[] wn = new Integer[w.length];
+			
+			order.setUserId(user.getUserId());
+			
+			for(int i = 0; i < w.length; i++){
+				wn[i] = Integer.parseInt(w[i]);
 			}
+			
+			List<?> warelist = wareService.querywareName(wn);
+			Ware ware;
+			Integer price;
+			order.setAddressId(addressId);
+			
+			for(int s = 0; s < warelist.size(); s++){
+				ware = (Ware) warelist.get(s);
+				order.setWareId(ware.getWareId());
+				order.setQuantity(q[s]);
+				price = Integer.parseInt(ware.getWarePrice()) * Integer.parseInt(q[s]) ;
+				order.setTotalPrice(price.toString());
+				
+				orderService.add(order);
+			}
+			
+			this.getCharge();
 			
 		}catch(Exception e){
 			e.printStackTrace();
