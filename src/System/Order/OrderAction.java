@@ -63,7 +63,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			String body = "Body";
 			String channel = "alipay_pc_direct";
 			String clientIP = "127.0.0.1";
-			String success_url = "localhost:8080/SnackMall/info/jsp";
+			String success_url = "http://127.0.0.1:8080/SnackMall/info.jsp";
 			
 			String charge = PingPlusPlusService.charge(orderNo, amount, subject, body, channel, clientIP,success_url);
 			
@@ -88,13 +88,13 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			String wares = request.getParameter("wares");
 			String queity = request.getParameter("queity");
 			Integer addressId = Integer.parseInt(request.getParameter("address"));
-			User user = (User) request.getAttribute("User");
+			User user = (User) session.getAttribute("User");
 			
 			String[] w = wares.split(",");
 			String[] q = queity.split(",");
 			Integer[] wn = new Integer[w.length];
 			
-			order.setUserId(user.getUserId());
+			order.setUser(user);
 			
 			for(int i = 0; i < w.length; i++){
 				wn[i] = Integer.parseInt(w[i]);
@@ -102,16 +102,19 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			
 			List<?> warelist = wareService.querywareName(wn);
 			Ware ware;
+			Address address = new Address();
+			address.setAddressId(addressId);
+			address = (Address) addressService.query(address).get(0);
 			Integer price;
-			order.setAddressId(addressId);
+			order.setAddress(address);
 			
 			for(int s = 0; s < warelist.size(); s++){
 				ware = (Ware) warelist.get(s);
-				order.setWareId(ware.getWareId());
+				order.setWare(ware);
 				order.setQuantity(q[s]);
 				price = Integer.parseInt(ware.getWarePrice()) * Integer.parseInt(q[s]) ;
 				order.setTotalPrice(price.toString());
-				
+				System.out.println(order.toString());
 				orderService.add(order);
 			}
 			
@@ -130,9 +133,17 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 		try{
 			List<?> list;
 			JSONArray rsp;
+			String userId = request.getParameter("userId");
+			User user = new User();
 			
 			if(order == null){
 				order = new Order();
+				
+			}
+			
+			if(userId != null && userId.equals("")){
+				user.setUserId(Integer.parseInt(userId));
+				order.setUser(user);
 			}
 			
 			list = orderService.query(order);

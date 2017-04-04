@@ -143,6 +143,7 @@
                 			}
                 		}
                 	});
+                	localStorage.setItem("userId",userId);
                 	$(".getAddress").show();
                 });
                 
@@ -161,6 +162,8 @@
                 		dataType: 'text',
                 		success: function(data){
                 			pingPay(data);
+                			localStorage.removeItem("shoppingcart");
+                			localStorage.removeItem("queity");
                 		}
                 	});
                 });

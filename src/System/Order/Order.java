@@ -14,12 +14,12 @@ import System.Ware.Ware;
  *     1.
  *     2.
  */
-public class Order {
+public class Order{
 	private Integer orderId;
-	private Integer userId;
-	private Integer addressId;
-	private String data;
-	private Integer wareId;
+	private User user;
+	private Address address;
+	private Ware ware;
+	private String orderdate;
 	private String quantity;
 	private String totalPrice;
 	
@@ -38,36 +38,36 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Integer getAddressId() {
-		return addressId;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAddressId(Integer addressId) {
-		this.addressId = addressId;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
-	public Integer getWareId() {
-		return wareId;
+	public Ware getWare() {
+		return ware;
 	}
 
-	public void setWareId(Integer wareId) {
-		this.wareId = wareId;
+	public void setWare(Ware ware) {
+		this.ware = ware;
 	}
 
-	public String getData() {
-		return data;
+	public String getOrderdate() {
+		return orderdate;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setOrderdate(String orderdate) {
+		this.orderdate = orderdate;
 	}
 
 	public String getQuantity() {
@@ -88,13 +88,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", userId=" + userId + ", addressId=" + addressId + ", data=" + data
-				+ ", wareId=" + wareId + ", quantity=" + quantity + ", totalPrice=" + totalPrice + "]";
+		return "Order [orderId=" + orderId + ", user=" + user + ", address=" + address + ", ware=" + ware
+				+ ", orderdate=" + orderdate + ", quantity=" + quantity + ", totalPrice=" + totalPrice + "]";
 	}
-
-	
-
-
-	
-	
 }

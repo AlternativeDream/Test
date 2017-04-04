@@ -34,6 +34,8 @@ public class AddressAction extends ActionSupport implements ModelDriven<Address>
 	     */
 	private static final long serialVersionUID = 1L;
 	@Autowired
+	UserService userService;
+	@Autowired
 	AddressService addressService;
 	HttpSession session = ServletActionContext.getRequest().getSession();
 	HttpServletRequest request = ServletActionContext.getRequest();
@@ -52,10 +54,19 @@ public class AddressAction extends ActionSupport implements ModelDriven<Address>
 		try{
 			List<?> list;
 			JSONArray rsp;
-			
 			user = (User) session.getAttribute("User");
+
+			if(user == null){
+				String userId = request.getParameter("userId");
+				user.setUserId(Integer.parseInt(userId));
+				
+				user = (User) userService.query(user).get(0);
+			}
+
 			address.setUserId(user.getUserId());
 			list = addressService.query(address);
+			
+			
 
 			if(list.size() > 0){
 				rsp = JSONArray.fromObject(list);

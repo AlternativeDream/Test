@@ -107,9 +107,15 @@
                 <span class="address">{{address}}</span><span class="addressee">{{addressee}}</span><span class="addtel">{{addtel}}</span><span class="deladdress"><a href="javascript:void(0)"><i class="fa fa-trash"></i></a></span>
             </div>
         </script>
+        <script id="orders" type="text/html">
+			<div class="orderinfo">
+				<span>{{orderId}}</span><span>{{ware.wareName}}</span><span>{{address.addressee}}</span><span>¥{totalPrice}</span><span>{{orderdate}}</span><span><a href="javascript:void(0)">详情</a></span>
+			</div>
+		</script>
         <script type="text/javascript">
         	/* 全局变量  */
         	var addresslist = {};
+        	var orderlist = {};
         	
         	/* 初始化  */
             $(document).ready(function(){
@@ -299,7 +305,7 @@
             function userdata(){
             	/* 用户订单数据  */
             	/* 用户地址数据  */
-            	var userId = "${User.userId}";
+            	var userId = localStorage.getItem("userId");
             	var useraddresslist = $.ajax({
             		type: 'POST',
             		url: 'getAddress',
@@ -321,6 +327,29 @@
                             $("#noadd").remove();
                             $(".maaddress").append(html);
             			}
+            			localStorage.removeItem("userId");
+            		}
+            	});
+            	var userorderlist = $.ajax({
+            		type: 'POST',
+            		url: 'getOrders',
+            		data: {
+            			"userId":userId
+            		},
+            		datatype: 'json',
+            		success: function(data){
+            			orderlist = data;
+            			var html = "";
+            			
+            			if(orderlist.length > 0){
+            				for(var i = 0; i < orderlist.length;i++){
+            					html = html + template("orders",orderlist[i]);
+            				}
+            				
+            				$("#goindex").remove();
+            				$(".myorder").append(html);
+            			}
+            			
             		}
             	});
             }
