@@ -18,6 +18,7 @@
 		
 		<property name="quantity" type="string" column="quantity" />
 		<property name="totalPrice" type="string" column="totalPrice" />
+		<property name="status" type="string" column="status" />
 		
 	</class>
 </hibernate-mapping>

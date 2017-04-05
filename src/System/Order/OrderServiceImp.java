@@ -87,4 +87,17 @@ public class OrderServiceImp implements OrderService {
 		return result;
 	}
 
+	@Override
+	public List<?> queryOrderDate(Order order, String DayStart, String DayEnd) throws Exception {
+		List<?> result = null;
+		
+		try{
+			result = this.provider.queryorderDate(order, DayStart, DayEnd);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 }

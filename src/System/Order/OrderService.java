@@ -54,4 +54,14 @@ public interface OrderService {
 	 * @return 成功返回List类型对象，否则返回null
 	 */
 	List<?> query( Order order  )throws Exception;
+	
+	/**
+	 * 按日期检索订单信息
+	 * @param order 订单过滤条件
+	 * @param DayStart 开始日期
+	 * @param DayEnd 结束日期
+	 * @return 成功返回List类型对象，否则返回null
+	 * @throws Exception 抛出异常
+	 */
+	List<?> queryOrderDate( Order order, String DayStart,String DayEnd)throws Exception;
 }

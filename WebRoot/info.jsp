@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -61,7 +61,19 @@
                         <div class="order-head"><span>订单号</span><span>订单商品</span><span>收货人</span><span>订单金额</span><span>日期</span><span>操作</span></div>
                         <div id="goindex" class="orderinfo">暂无订单，这就去挑选商品 : <a href="index.html">商城首页</a></div>
                         <div class="orderinfo">
-                            <span>123456</span><span>巧克力巧克力巧克力巧克力巧克力</span><span>QDC</span><span>¥50</span><span>2017-03-03  00:00:00</span><span><a href="#">详情</a></span>
+                            <div>
+                                <span>123456</span>
+                                <span>巧克力巧克力巧克力巧克力巧克力</span>
+                                <span>QDC</span>
+                                <span>¥50</span>
+                                <span class="orderdate">2017-03-03  00:00:00</span>
+                                <span><a class="toggledec" href="javascript:void(0)">详情</a></span>
+                            </div>
+                            <div class="order-dec">
+                                <span>收货人：zss</span>
+                                <span>收货地址：福建省福州市闽江学院四区10A 609</span>
+                                <span>联系方式：13412345678</span>
+                            </div>
                         </div>
                     </div>
                     <div class="userinfo">
@@ -267,6 +279,10 @@
                 	$("#newpassword").val("");
                 	$("#renewpassword").val("");
                     alert("修改成功");
+                });
+
+		$(".orderinfo").on('click','.toggledec',function(){
+                    $(this).parent().parent().next().slideToggle();
                 });
                 
             }

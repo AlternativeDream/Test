@@ -48,4 +48,13 @@ public interface OrderDao {
 	 * @return 成功返回大于0的数值,否则返回小于等于0的数值
 	 */
 	int modify( Order order )throws Exception;
+	
+	/**
+	 * 按日期范围检索订单
+	 * @param order 订单信息 
+	 * @param DayStart 开始日期 
+	 * @param DayEnd 结束日期
+	 * @return 成功返回List<Order>集合，否则返回null
+	 */
+	List<Order> queryorderDate( Order order,String DayStart,String DayEnd )throws Exception;
 }

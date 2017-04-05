@@ -203,6 +203,26 @@
         <!--底部标签-->
         <div class="footer"></div>
         
+        
+        <!--订单模板-->
+        <script id="orderModel" type="text/html">
+			<div class="order">
+				<div class="order-title">
+					<span>订单编号：{{orderId}}</span>
+					<span>下单时间：{{orderdate}}</span>
+                    <span>支付方式：网上支付</span>
+                </div>
+                <div class="order-mes">
+                    <span><p class="vm">{{ware.wareName}}<br>({{ware.description}})</p></span>
+                    <span><p class="vm">{{ware.warePrice}}</p></span>
+                    <span><p class="vm">{{quantity}}</p></span>
+                    <span><p class="vm">{{address.addressee}}</p></span>
+                    <span><p class="vm">{{status}}<br><a href="#">订单详情</a></p></span>
+                    <span><p class="vm">{{totalPrice}}</p></span>
+                    <span><p class="vm"><input class="btn-add isok" type="button" value="交易关闭" /></p></span>
+                </div>
+            </div>
+		</script>
         <!--商品模板-->
         <script id="wares" type="text/html">
             <div class="ware">
@@ -417,6 +437,31 @@
         	/* 初始化数据  */
         	function loaddata(){
         		/* 加载订单数据  */
+        		var getOrders = $.ajax({
+        			type: 'POST',
+        			url: 'getOrders',
+        			data: {},
+        			datatype: 'json',
+        			success: function(data){
+        				orderlist = data;
+        				var html = "";
+        				
+        				for(var i = 0; i < orderlist.length;i++){
+        					
+        					if(orderlist.status == "1"){
+        						orderlist.status = "买家已付款";
+        					}else if(orderlist.status == "2"){
+        						orderlist.status == "卖家已发货";
+        					}else{
+        						orderlist.status == "订单已完成";
+        					}
+        					
+        					html = html + template("orderModel",orderlist[i]);
+        				}
+        				
+        				$(".orders-list").append(html);
+        			}
+        		});
         		
         		/* 加载商品数据  */
         		var getWares = $.ajax({

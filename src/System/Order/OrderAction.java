@@ -143,9 +143,10 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 				user.setUserId(id);
 			}
 			
-			
-			
-			
+			if(user.getUserId() == 0){
+				user = null;
+			}
+
 			if(order == null){
 				order = new Order();
 			}
@@ -163,6 +164,41 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			out.print(rsp.toString());
 			out.flush();
 			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public String getOrderDate(){
+		String result = null;
+		
+		try{
+			List<?> list;
+			JSONArray rsp;
+			String DayStart = request.getParameter("DayStart");
+			String DayEnd = request.getParameter("DayEnd");
+			String userId = request.getParameter("userId");
+			User user = new User();
+			
+			if(userId != null && !userId.equals("")){
+				user.setUserId(Integer.parseInt(userId));
+				order.setUser(user);
+			}
+			
+			list = orderService.queryOrderDate(order, DayStart, DayEnd);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.setExcludes(new String[] {"user"});
+			System.out.println(list.toString());
+			rsp = JSONArray.fromObject(list,jsonConfig);
+			response.setContentType("application/json;charset=UTF-8");
+			
+			out = response.getWriter();
+			out.print(rsp.toString());
+			out.flush();
+			out.close();
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

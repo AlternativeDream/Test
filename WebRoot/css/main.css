@@ -1,4 +1,4 @@
-/* 默认边距 */
+﻿/* 默认边距 */
 
 *{
     margin: 0;
@@ -736,9 +736,19 @@ a{
 .orderinfo{
     text-align: center;
     width: 100%;
-    height: 80px;
     line-height: 80px;
     border: 1px solid #F0F0F0;
+}
+
+.order-dec{
+    text-align: center;
+    border-bottom: 1px solid #F0F0F0;
+    display: none;
+}
+
+.order-dec span{
+    display: inline;
+    margin: 0 20px;
 }
 
 
@@ -978,6 +988,5 @@ a{
 }
 
 .orderdate{
-	display: inline-block;
-	light-height: 20px;
+	line-height: 14px;
 }

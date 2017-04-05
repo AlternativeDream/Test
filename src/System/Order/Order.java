@@ -22,6 +22,7 @@ public class Order{
 	private String orderdate;
 	private String quantity;
 	private String totalPrice;
+	private String status = "1";
 	
 	
 	public Order() {}
@@ -86,9 +87,18 @@ public class Order{
 		this.totalPrice = totalPrice;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", user=" + user + ", address=" + address + ", ware=" + ware
-				+ ", orderdate=" + orderdate + ", quantity=" + quantity + ", totalPrice=" + totalPrice + "]";
+				+ ", orderdate=" + orderdate + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", status="
+				+ status + "]";
 	}
 }
