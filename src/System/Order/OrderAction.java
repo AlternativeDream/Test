@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,21 +134,29 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 		try{
 			List<?> list;
 			JSONArray rsp;
-			String userId = request.getParameter("userId");
-			User user = new User();
+			User user = (User) session.getAttribute("User");
+			
+			if(user == null){
+				String userId = request.getParameter("userId");
+				Integer id = Integer.parseInt(userId);
+				user = new User();
+				user.setUserId(id);
+			}
+			
+			
+			
 			
 			if(order == null){
 				order = new Order();
-				
 			}
 			
-			if(userId != null && userId.equals("")){
-				user.setUserId(Integer.parseInt(userId));
-				order.setUser(user);
-			}
+			order.setUser(user);
 			
 			list = orderService.query(order);
-			rsp = JSONArray.fromObject(list);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.setExcludes(new String[] {"user"});
+			System.out.println(list.toString());
+			rsp = JSONArray.fromObject(list,jsonConfig);
 			response.setContentType("application/json;charset=UTF-8");
 			
 			out = response.getWriter();

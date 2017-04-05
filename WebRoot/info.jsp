@@ -61,7 +61,7 @@
                         <div class="order-head"><span>订单号</span><span>订单商品</span><span>收货人</span><span>订单金额</span><span>日期</span><span>操作</span></div>
                         <div id="goindex" class="orderinfo">暂无订单，这就去挑选商品 : <a href="index.html">商城首页</a></div>
                         <div class="orderinfo">
-                            <span>123456</span><span>巧克力巧克力巧克力巧克力巧克力</span><span>QDC</span><span>¥50</span><span>2017-03-03</span><span><a href="#">详情</a></span>
+                            <span>123456</span><span>巧克力巧克力巧克力巧克力巧克力</span><span>QDC</span><span>¥50</span><span>2017-03-03  00:00:00</span><span><a href="#">详情</a></span>
                         </div>
                     </div>
                     <div class="userinfo">
@@ -109,7 +109,7 @@
         </script>
         <script id="orders" type="text/html">
 			<div class="orderinfo">
-				<span>{{orderId}}</span><span>{{ware.wareName}}</span><span>{{address.addressee}}</span><span>¥{totalPrice}</span><span>{{orderdate}}</span><span><a href="javascript:void(0)">详情</a></span>
+				<span>{{orderId}}</span><span>{{ware.wareName}}</span><span>{{address.addressee}}</span><span>¥{{totalPrice}}</span><span class="orderdate">{{orderdate}}</span><span><a href="javascript:void(0)">详情</a></span>
 			</div>
 		</script>
         <script type="text/javascript">
@@ -305,7 +305,18 @@
             function userdata(){
             	/* 用户订单数据  */
             	/* 用户地址数据  */
-            	var userId = localStorage.getItem("userId");
+            	var userId = "${User.userId}"
+            	
+            	if(userId == null || userId == ""){
+            		userId = localStorage.getItem("userId");
+            		
+            		if(userId == null || userId == ""){
+            			alert("请登录");
+            			location.href = "login.jsp"
+            		}
+            	}
+            	
+            		
             	var useraddresslist = $.ajax({
             		type: 'POST',
             		url: 'getAddress',
@@ -327,9 +338,10 @@
                             $("#noadd").remove();
                             $(".maaddress").append(html);
             			}
-            			localStorage.removeItem("userId");
+            			
             		}
             	});
+            	
             	var userorderlist = $.ajax({
             		type: 'POST',
             		url: 'getOrders',
@@ -349,7 +361,7 @@
             				$("#goindex").remove();
             				$(".myorder").append(html);
             			}
-            			
+            			localStorage.removeItem("userId");
             		}
             	});
             }

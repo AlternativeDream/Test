@@ -8,9 +8,9 @@
 			<generator class="native"></generator>
 		</id>
 		
-		<many-to-one name="user" class="System.User.User" column="userId" ></many-to-one>
-		<many-to-one name="address" class="System.User.Address" column="addressId"></many-to-one>
-		<many-to-one name="ware" class="System.Ware.Ware" column="wareId"></many-to-one>
+		<many-to-one name="user" class="System.User.User" column="userId" lazy="false" ></many-to-one>
+		<many-to-one name="address" class="System.User.Address" column="addressId" lazy="false" ></many-to-one>
+		<many-to-one name="ware" class="System.Ware.Ware" column="wareId" lazy="false" ></many-to-one>
 		
 		<property name="orderdate" type="string" generated="insert" >
 			<column name="orderdate" sql-type="TIMESTAMP" default="CURRENT_TIMESTAMP"></column>
