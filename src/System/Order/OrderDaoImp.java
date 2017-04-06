@@ -151,18 +151,36 @@ public class OrderDaoImp implements OrderDao {
 		try{
 			String Hql = "from Order o where 1=1";
 			Query query = null;
-			if(order.getUser().getUserId() != null && !order.getUser().getUserId().equals("") && DayStart != null && !DayStart.equals("") && DayEnd != null && !DayEnd.equals("")){
-				Hql += " and o.user.userId=? and date_format(o.orderdate,'%y-%c-%d %h:%i:%s') > date_format(?,'%y-%c-%d %h:%i:%s') and date_format(o.orderdate,'%y-%c-%d %h:%i:%s') < date_format(?,'%y-%c-%d %h:%i:%s')";
+			if(order.getUser() != null && order.getUser().getUserId() != null && !order.getUser().getUserId().equals("") && DayStart != null && !DayStart.equals("") && DayEnd != null && !DayEnd.equals("")){
+				Hql += " and o.user.userId=? and o.orderdate > ? and  o.orderdate < ?";
 				query = getSession().createQuery(Hql).setInteger(0, order.getUser().getUserId()).setString(1, DayStart).setString(2, DayEnd);
-			}else if(DayStart != null && !DayStart.equals("") && DayEnd != null && !DayEnd.equals("") && order.getStatus() !=null){
-				Hql += " and o.status=? and date_format(o.orderdate,'%y-%c-%d %h:%i:%s') > date_format(?,'%y-%c-%d %h:%i:%s') and date_format(o.orderdate,'%y-%c-%d %h:%i:%s') < date_format(?,'%y-%c-%d %h:%i:%s')";
-				query = getSession().createQuery(Hql).setString(0, order.getStatus()).setString(1, DayStart).setString(2, DayEnd);
-			}else if(DayStart != null && !DayStart.equals("") && DayEnd != null && !DayEnd.equals("")){
-				Hql += " and date_format(o.orderdate,'%y-%c-%d %h:%i:%s') > date_format(?,'%y-%c-%d %h:%i:%s') and date_format(o.orderdate,'%y-%c-%d %h:%i:%s') < date_format(?,'%y-%c-%d %h:%i:%s')";
+			}else if(DayStart != null && !DayStart.equals("") && DayEnd != null && !DayEnd.equals("") && order.getStatus() !=null && !order.getStatus().equals("")){
+				String[] status = order.getStatus().split(",");
+				Hql += " and o.orderdate > ? and  o.orderdate < ? and status=?";
+				for(int i = 1; i < status.length;i++){
+					Hql += " or status=?";
+				}
+				
 				query = getSession().createQuery(Hql).setString(0, DayStart).setString(1, DayEnd);
-			}else if(order.getStatus() != null){
-				Hql += " and o.status=?";
-				query = getSession().createQuery(Hql).setString(0, order.getStatus());
+				for(int j = 0; j < status.length;j++){
+					query.setString(j + 2, status[j]);
+				}
+			}else if(DayStart != null && !DayStart.equals("") && DayEnd != null && !DayEnd.equals("")){
+				Hql += " and  o.orderdate > ? and  o.orderdate < ?";
+				query = getSession().createQuery(Hql).setString(0, DayStart).setString(1, DayEnd);
+			}else if(order.getStatus() != null && !order.getStatus().equals("")){
+				String[] status = order.getStatus().split(",");
+				
+				Hql += " and status=?";
+				for(int i = 1; i < status.length;i++){
+					Hql += " or status=?";
+				}
+				
+				query = getSession().createQuery(Hql);
+				for(int j = 0; j < status.length;j++){
+					query.setString(j, status[j]);
+				}
+				
 			}else{
 				query = getSession().createQuery(Hql);
 			}

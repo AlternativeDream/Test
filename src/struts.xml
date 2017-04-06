@@ -66,6 +66,12 @@
 		
 		<!-- 获取订单 -->
 		<action name="getOrders" class="OrderAction" method="getOrders"></action>
+		
+		<!-- 按日期检索订单 -->
+		<action name="getOrderDate" class="OrderAction" method="getOrderDate" ></action>
+		
+		<!-- 更改订单状态 -->
+		<action name="ModifyOrder" class="OrderAction" method="ModifyOrder" ></action>
 
 	</package>
 </struts>

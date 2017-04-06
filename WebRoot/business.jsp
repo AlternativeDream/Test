@@ -25,11 +25,11 @@
                 <div class="main">
                     <div class="main-search">
                         <div class="main-order">
-                            <input type="date" />
-                            ~ <input type="date" />
-                            <input type="checkbox" value="待付款" />待付款
-                            <input type="checkbox" value="已付款" />已付款
-                            <input type="checkbox" value="已完成" />已完成
+                            <input id="DayStart" type="date" />
+                            ~ <input id="DayEnd" type="date" />
+                            <input name="status" type="checkbox" value="1" />已付款
+                            <input name="status" type="checkbox" value="2" />已发货
+                            <input name="status" type="checkbox" value="0" />已完成
                             <input class="btn-search" type="button" value="搜索订单" />
                         </div>
                         <div class="main-ware">
@@ -206,7 +206,7 @@
         
         <!--订单模板-->
         <script id="orderModel" type="text/html">
-			<div class="order">
+			<div id={{orderId}} class="order">
 				<div class="order-title">
 					<span>订单编号：{{orderId}}</span>
 					<span>下单时间：{{orderdate}}</span>
@@ -217,9 +217,13 @@
                     <span><p class="vm">{{ware.warePrice}}</p></span>
                     <span><p class="vm">{{quantity}}</p></span>
                     <span><p class="vm">{{address.addressee}}</p></span>
-                    <span><p class="vm">{{status}}<br><a href="#">订单详情</a></p></span>
+                    <span><p class="vm oStatus">{{status}}<br><a href="#">订单详情</a></p></span>
                     <span><p class="vm">{{totalPrice}}</p></span>
-                    <span><p class="vm"><input class="btn-add isok" type="button" value="交易关闭" /></p></span>
+				{{if status=="买家已付款"}}
+                    <span><p class="vm"><input class="btn-add ispay" type="button" value="发货" /></p></span>
+				{{else if status=="卖家已发货"}}
+					<span><p class="vm"><input class="btn-add cheques" type="button" value="完成订单" /></p></span>
+				{{/if}}
                 </div>
             </div>
 		</script>
@@ -432,6 +436,59 @@
                  	
                     $(".updateware").fadeOut();
                 });
+                
+                /* 按日期搜索订单  */
+                $(".btn-search").click(function(){
+                	var DayStart = $("#DayStart").val();
+                	var DayEnd = $("#DayEnd").val();
+                	var statusArray = new Array();
+                	
+                	$('input[name="status"]:checked').each(function(){
+                		statusArray.push($(this).val());
+                	});
+                	
+                	var status = statusArray.join(',');
+                	
+                	if(status == null && status == ""){
+                		status = null;
+                	}
+                	
+                	$.ajax({
+                		type: 'POST',
+                		url: 'getOrderDate',
+                		data: {
+                			"DayStart": DayStart,
+                			"DayEnd": DayEnd,
+                			"status": status
+                		},
+                		datatype: 'json',
+                		success: function(data){
+                			orderlist = data;
+                			makeOrder();
+                		}
+                	});
+                	
+                });
+                
+                /* 绑定订单状态按钮  */
+                $(".orders-list").on('click','.ispay',function(){
+                	var orderId = $(this).parent().parent().parent().parent().attr("id");
+                	var status = {
+                			"orderId": orderId,
+                			"status": "2"
+                	};
+                	ModifyOrder(status);
+                });
+                
+                /* 绑定订单状态按钮  */
+                $(".orders-list").on('click','.cheques',function(){
+                	var orderId = $(this).parent().parent().parent().parent().attr("id");
+                	var status = {
+                			"orderId": orderId,
+                			"status": "0"
+                	};
+                	ModifyOrder(status);
+                });
             }
         	
         	/* 初始化数据  */
@@ -444,22 +501,7 @@
         			datatype: 'json',
         			success: function(data){
         				orderlist = data;
-        				var html = "";
-        				
-        				for(var i = 0; i < orderlist.length;i++){
-        					
-        					if(orderlist.status == "1"){
-        						orderlist.status = "买家已付款";
-        					}else if(orderlist.status == "2"){
-        						orderlist.status == "卖家已发货";
-        					}else{
-        						orderlist.status == "订单已完成";
-        					}
-        					
-        					html = html + template("orderModel",orderlist[i]);
-        				}
-        				
-        				$(".orders-list").append(html);
+        				makeOrder();
         			}
         		});
         		
@@ -486,7 +528,49 @@
         		
         		/* 加载用户数据  */
         	}
+        	
+        	/* 动态生成订单页  */
+        	function makeOrder(){
+        		$(".orders-list").empty();
+        		var html = "";
+				
+				for(var i = 0; i < orderlist.length;i++){
+					
+					if(orderlist[i].status == "1"){
+						orderlist[i].status = "买家已付款";
+					}else if(orderlist[i].status == "2"){
+						orderlist[i].status = "卖家已发货";
+					}else{
+						orderlist[i].status = "订单已完成";
+					}
+					
+					html = html + template("orderModel",orderlist[i]);
+				}
+				
+				$(".orders-list").append(html);
+        	}
             
+        	/* 变更订单状态  */
+        	function ModifyOrder(status){
+        		$.ajax({
+            		type: 'POST',
+            		url: 'ModifyOrder',
+            		data: status,
+            		success: function(){
+            			var order = $("#"+status.orderId);
+            			
+            			if(status.status == "2"){
+            				order.find(".btn-add").removeClass("ispay").addClass("cheques").val("完成订单");
+            				order.find(".oStatus").html('卖家已发货<br><a href="#">订单详情</a>');
+            			}else if(status.status == "0"){
+            				order.find(".btn-add").remove();
+            				order.find(".oStatus").html('交易已完成<br><a href="#">订单详情</a>');
+            			}
+            			
+            		}
+            	});
+        	}
+        	
         </script>
 	</body>
 </html>

@@ -135,15 +135,15 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			List<?> list;
 			JSONArray rsp;
 			User user = (User) session.getAttribute("User");
+			String userId = request.getParameter("userId");
 			
-			if(user == null){
-				String userId = request.getParameter("userId");
+			if(user == null && userId != null && !userId.equals("")){
 				Integer id = Integer.parseInt(userId);
 				user = new User();
 				user.setUserId(id);
 			}
 			
-			if(user.getUserId() == 0){
+			if(user != null && user.getUserId() == 0){
 				user = null;
 			}
 
@@ -179,6 +179,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			JSONArray rsp;
 			String DayStart = request.getParameter("DayStart");
 			String DayEnd = request.getParameter("DayEnd");
+			String status = request.getParameter("status");
 			String userId = request.getParameter("userId");
 			User user = new User();
 			
@@ -187,6 +188,17 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 				order.setUser(user);
 			}
 			
+			if(DayStart != null && DayStart != "" && DayEnd != null && DayEnd != ""){
+				DayStart = DayStart + "  00:00:00";
+				DayEnd = DayEnd + "  23:59:59";
+			}
+			
+			if(status != null && !status.equals("")){
+				order.setStatus(status);
+			}else{
+				order.setStatus(null);
+			}
+
 			list = orderService.queryOrderDate(order, DayStart, DayEnd);
 			JsonConfig jsonConfig = new JsonConfig();
 			jsonConfig.setExcludes(new String[] {"user"});
@@ -210,16 +222,16 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 		String result = null;
 		
 		try{
-			if(order != null){
-				response.setContentType("text/html;charset=UTF-8");
-				out = response.getWriter();
-				if(orderService.modify(order) > 0){
-					out.print("修改成功！");
-				}else{
-					out.print("修改失败！");
-				}
-				out.flush();
-				out.close();
+			String status = request.getParameter("status");
+			String orderId = request.getParameter("orderId");
+			order = new Order();
+			
+			if(status != null && !status.equals("") && orderId != null && !orderId.equals("")){
+				Integer id = Integer.parseInt(orderId);
+				order.setOrderId(id);
+				order = (Order) orderService.query(order).get(0);
+				order.setStatus(status);
+				orderService.modify(order);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
