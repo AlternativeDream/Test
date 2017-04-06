@@ -35,20 +35,20 @@
                         <div class="main-ware">
                             <input id="wareKey" type="text" placeholder="请输入关键词" />
                             <select id="wareKind">
-                            	<option value="-1">无</option>
-                                <option value="0">零食/果干/坚果</option>
-                                <option value="1">饼干/糕点</option>
-                                <option value="2">糖果/巧克力</option>
-                                <option value="3">牛奶/奶粉</option>
-                                <option value="4">酒/饮料/水</option>
-                                <option value="5">冲饮/咖啡/茶</option>
+                            	<option value="">无</option>
+                                <option value="snacks">零食/果干/坚果</option>
+                                <option value="cooky">饼干/糕点</option>
+                                <option value="candy">糖果/巧克力</option>
+                                <option value="milk">牛奶/奶粉</option>
+                                <option value="wine">酒/饮料/水</option>
+                                <option value="coffee">冲饮/咖啡/茶</option>
                             </select>
-                            <input type="button" value="搜索商品" />
+                            <input id="queryWare" type="button" value="搜索商品" />
                             <input id="addware" type="button" value="新增商品" />
                         </div>
                         <div class="main-user">
-                            <input type="text" placeholder="请输入用户名或用户联系号码" />
-                            <input type="button" value="搜索用户" />
+                            <input class="usermsg" type="text" placeholder="请输入用户名或用户联系号码" />
+                            <input id="queryUser" type="button" value="搜索用户" />
                         </div>
                     </div>
                     <div class="orders">
@@ -217,7 +217,7 @@
                     <span><p class="vm">{{ware.warePrice}}</p></span>
                     <span><p class="vm">{{quantity}}</p></span>
                     <span><p class="vm">{{address.addressee}}</p></span>
-                    <span><p class="vm oStatus">{{status}}<br><a href="#">订单详情</a></p></span>
+                    <span><p class="vm oStatus">{{status}}<br><a class="order-desc" href="javascript:void(0)">订单详情</a></p></span>
                     <span><p class="vm">{{totalPrice}}</p></span>
 				{{if status=="买家已付款"}}
                     <span><p class="vm"><input class="btn-add ispay" type="button" value="发货" /></p></span>
@@ -225,6 +225,9 @@
 					<span><p class="vm"><input class="btn-add cheques" type="button" value="完成订单" /></p></span>
 				{{/if}}
                 </div>
+				<div class="order-footer">
+					<span><p class="vm"><span>收货地址：{{address.address}}</span><span>联系方式：{{address.addtel}}</span></p></span>
+				</div>
             </div>
 		</script>
         <!--商品模板-->
@@ -245,6 +248,28 @@
                     <span><p class="vm"><input class="btn-update" type="button" value="修改信息" /></p></span>
                 </div>
             </div>
+        </script>
+        
+        <!-- 用户模板  -->
+        <script id="users" type="text/html">
+        	<div id={{userId}} class="user">
+		        <div class="user-title">
+		            <span>用户编号：{{userId}}</span>
+		        </div>
+		        <div class="user-mes">
+		            <span><p class="vm">{{userName}}</p></span>
+		            <span><p class="vm">{{userTel}}</p></span>
+		            <span><p class="vm">{{userSex}}</p></span>
+		            <span><p class="vm">
+						{{if userId == 0}}
+							管理员
+						{{else}}
+							游客
+						{{/if}}
+					</p></span>
+		            <span><p class="vm"><input class="getUserOrders" type="button" value="查看该用户订单" /></p></span>
+		        </div>
+		    </div>
         </script>
 
         <script type="text/javascript" src="js/template.js"></script>
@@ -489,6 +514,50 @@
                 	};
                 	ModifyOrder(status);
                 });
+                
+                $(".orders-list").on('click','.order-desc',function(){
+                	var a = $(this).parent().parent().parent().parent();
+                	a.find(".order-footer").slideToggle()
+                });
+                
+                $("#queryUser").click(function(){
+                	var usermsg = $(".usermsg").val();
+                	getUsers(usermsg);
+                });
+                
+                /* 检索用户订单  */
+                $(".users-list").on('click','.getUserOrders',function(){
+                	var userId = $(this).parent().parent().parent().parent().attr("id");
+                	
+                	$.ajax({
+            			type: 'POST',
+            			url: 'getOrders',
+            			data: {
+                			"userId": userId
+                    	},
+            			datatype: 'json',
+            			success: function(data){
+            				orderlist = data;
+            				makeOrder();
+            				$("#orders-manage").click();
+            			}
+            		});
+                	
+                });
+                
+                /* 按关键字类型检索商品   */
+                $("#queryWare").click(function(){
+                	var warekey = $("#wareKey").val();
+                	var wareKind = $("#wareKind").val();
+                	
+                	var ware = {
+                			"warekey": warekey,
+                			"wareKind": wareKind
+                	};
+                	
+                	getWarelist(ware);
+                	
+                });
             }
         	
         	/* 初始化数据  */
@@ -506,10 +575,42 @@
         		});
         		
         		/* 加载商品数据  */
-        		var getWares = $.ajax({
+        		var getW = getWarelist(null);
+        		
+        		/* 加载用户数据  */
+        		var getU = getUsers(null);
+        		
+        	}
+        	
+        	function getUsers(usermsg){
+        		$.ajax({
+        			type: 'POST',
+        			url: 'getUsers',
+        			data: {
+        				"usermsg": usermsg
+        			},
+        			datatype: 'json',
+        			success: function(data){
+        				userlist = data;
+        				var html = "";
+        				
+        				for(var i = 0; i < userlist.length;i++){
+        					html = html + template("users",userlist[i]);
+        				}
+        				
+        				$(".users-list").empty();
+        				$(".users-list").append(html);
+        			},error: function(data){
+        				alert(data);
+        			}
+        		});
+        	}
+        	
+        	function getWarelist(ware){
+        		$.ajax({
 	                type: 'POST',
 	                url: 'getWares',
-	                data: {},
+	                data: ware,
 	                datatype: 'json',
 	                success: function(data){
 	                	warelist = data;
@@ -519,14 +620,13 @@
 	                		html = html + template("wares",warelist[i]);
 	                	}
 	                	
+	                	$(".wares-list").empty();
 	                	$(".wares-list").append(html);
 	                	
 	                },error:function(data){
 	                	alert(data);
 	                }
 	            });
-        		
-        		/* 加载用户数据  */
         	}
         	
         	/* 动态生成订单页  */

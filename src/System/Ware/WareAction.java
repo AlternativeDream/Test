@@ -75,9 +75,19 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 		try{
 			List<?> list;
 			JSONArray rsp;
+			String warekey = request.getParameter("warekey");
+			String wareKind = request.getParameter("wareKind");
 			
 			if(ware == null){
 				ware = new Ware();
+			}
+			
+			if(warekey != null && !warekey.equals("")){
+				ware.setWarekey(warekey);
+			}
+			
+			if(wareKind != null && !wareKind.equals("")){
+				ware.setWareKind(wareKind);
 			}
 			
 			list = wareService.query(ware);

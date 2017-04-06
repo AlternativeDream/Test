@@ -244,6 +244,21 @@ body {
     visibility: hidden;
 }
 
+.order-footer{
+	position: relative;
+	height: 30px;
+	font-size: 14px;
+	border-top: 1px solid #F0F0F0;
+	padding-top: 14px;
+	display: none;
+}
+
+.order-footer p span:first-child{
+	display: inline-block;
+	width : 500px;
+	margin-left: 20px;
+}
+
 .add-mes{
     padding-right: 10px;
 }

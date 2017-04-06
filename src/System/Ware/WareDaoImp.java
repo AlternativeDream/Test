@@ -108,24 +108,17 @@ public class WareDaoImp implements WareDao {
 			}else if(ware.getWareName() != null && !ware.getWareName().equals("")){
 				Hql += " and w.wareName=?";
 				query = getSession().createQuery(Hql).setString(0, ware.getWareName());
+			}else if(ware.getWarekey() !=null && !ware.getWarekey().equals("")){
+				if(ware.getWareKind() !=null && !ware.getWareKind().equals("")){
+					Hql = " from Ware w where w.wareKind=? or w.warekey like ? or w.wareName like ? or w.description like ?";
+					query = getSession().createQuery(Hql).setString(0, ware.getWareKind()).setString(1, "%" + ware.getWarekey() + "%").setString(2, "%" + ware.getWarekey() + "%").setString(3, "%" + ware.getWarekey() + "%");
+				}else{
+					Hql = " from Ware w where w.warekey like ? or w.wareName like ? or w.description like ?";
+					query = getSession().createQuery(Hql).setString(0, "%" + ware.getWarekey() + "%").setString(1, "%" + ware.getWarekey() + "%").setString(2, "%" + ware.getWarekey() + "%");
+				}
 			}else if(ware.getWareKind() !=null && !ware.getWareKind().equals("")){
 				Hql += " and w.wareKind=?";
 				query = getSession().createQuery(Hql).setString(0, ware.getWareKind());
-			}else if(ware.getWarekey() !=null && !ware.getWarekey().equals("")){
-				String[] key = ware.getWareKind().split(",");
-				Hql = "from Ware w where w.warekey like ?";
-				
-				for(int i = 1; i < key.length;i++ ){
-					Hql += " or like ?";
-				}
-				
-				query = getSession().createQuery(Hql);
-				
-				for(int j = 0; j < key.length;j++){
-					query.setString(j, "%" + key[j] + "%");
-				}
-				
-				
 			}else{
 				query = getSession().createQuery(Hql);
 			}

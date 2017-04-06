@@ -100,12 +100,12 @@ public class OrderDaoImp implements OrderDao {
 			Query query = null;
 			
 			if(order.getUser() != null && order.getUser().getUserId() != null && !order.getUser().getUserId().equals("")){
-				Hql += " and o.user.userId=? and o.status=?";
+				Hql += " and o.user.userId=?";
 				if(order.getOrderdate() != null && !order.getOrderdate().equals("")){
 					Hql += " and o.orderdate=?";
-					query = getSession().createQuery(Hql).setInteger(0, order.getUser().getUserId()).setString(1, order.getStatus()).setString(2, order.getOrderdate());
-				}else{
 					query = getSession().createQuery(Hql).setInteger(0, order.getUser().getUserId()).setString(1, order.getOrderdate());
+				}else{
+					query = getSession().createQuery(Hql).setInteger(0, order.getUser().getUserId());
 				}
 			}else if(order.getOrderId() != null && !order.getOrderId().equals("")){
 				Hql += " and o.orderId=?";

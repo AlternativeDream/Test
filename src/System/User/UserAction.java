@@ -1,6 +1,10 @@
 package System.User;
 
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -8,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 
 /**
  * @TypeName：UserAction
@@ -31,6 +38,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	UserService userService;
 	HttpSession session = ServletActionContext.getRequest().getSession();
 	HttpServletRequest request = ServletActionContext.getRequest();
+	HttpServletResponse response = ServletActionContext.getResponse();
+	PrintWriter out;
 	
 	private User user;
 	
@@ -175,6 +184,41 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 				}
 				
 			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public String getUsers(){
+		String result = null;
+		
+		try{
+			List<?> list;
+			JSONArray rsp;
+			String usermsg = request.getParameter("usermsg");
+			
+			if(usermsg != null && !usermsg.equals("")){
+				if(usermsg.length() == 11 || usermsg.length() == 13){
+					user.setUserTel(usermsg);
+				}else{
+					user.setUserName(usermsg);
+				}
+			}
+			
+			list = userService.querUsers(user);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.setExcludes(new String[] {"address","orders"});
+			
+			rsp = JSONArray.fromObject(list,jsonConfig);
+			response.setContentType("application/json;charset=UTF-8");
+			
+			out = response.getWriter();
+			out.print(rsp.toString());
+			out.flush();
+			out.close();
 			
 		}catch(Exception e){
 			e.printStackTrace();

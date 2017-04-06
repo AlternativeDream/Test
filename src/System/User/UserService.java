@@ -60,4 +60,11 @@ public interface UserService {
 	 * @return 成功返回List类型对象，否则返回null
 	 */
 	List<?> query( User user )throws Exception;
+	
+	/**
+	 * 检索用户信息列表
+	 * @param user 过滤条件
+	 * @return 成功返回List类型对象，否则返回null
+	 */
+	List<?> querUsers( User user )throws Exception;
 }

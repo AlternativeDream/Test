@@ -148,4 +148,37 @@ public class UserDaoImp implements UserDao {
 		return result;
 	}
 
+	@Override
+	public List<?> queryUsers(User user) throws Exception {
+		List<User> result = new ArrayList<User>();
+		
+		try{
+			String Hql = " from User u where 1=1";
+			Query query = null;
+			
+			if(user.getUserName() != null && !user.getUserName().equals("")){
+				Hql += " and u.userName=?";
+				query = getSession().createQuery(Hql).setString(0, user.getUserName());
+			}else if(user.getUserTel() != null && !user.getUserTel().equals("")){
+				Hql += " and u.userTel=?";
+				query = getSession().createQuery(Hql).setString(0, user.getUserTel());
+			}else{
+				query = getSession().createQuery(Hql);
+			}
+			
+			List<?> list = query.list();
+			User userlist;
+			
+			for(int i = 0; i < list.size(); i++){
+				userlist = (User) list.get(i);
+				result.add(userlist);
+			}
+			
+		}catch(Exception e){
+			throw e;
+		}
+		
+		return result;
+	}
+
 }

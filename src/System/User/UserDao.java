@@ -48,5 +48,12 @@ public interface UserDao {
 	 * @return 成功返回大于0的数值,否则返回小于等于0的数值
 	 */
 	int hasName(User user)throws Exception;
+	
+	/**
+	 * 获得用户列表
+	 * @param user 用户信息
+	 * @return 返回用户列表list
+	 */
+	List<?> queryUsers(User user) throws Exception;
 
 }

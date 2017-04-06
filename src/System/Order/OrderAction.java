@@ -144,7 +144,9 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			}
 			
 			if(user != null && user.getUserId() == 0){
-				user = null;
+				user = new User();
+				Integer id = Integer.parseInt(userId);
+				user.setUserId(id);
 			}
 
 			if(order == null){

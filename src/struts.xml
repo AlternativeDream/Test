@@ -30,6 +30,9 @@
 		<action name="Modify" class="UserAction" method="Modify" >
 		</action>
 		
+		<!-- 获取用户列表 -->
+		<action name="getUsers" class="UserAction" method="getUsers" ></action>
+		
 		<!-- 修改用户密码 -->
 		<action name="ModifyPassword" class="UserAction" method="ModifyPassword">
 		</action>

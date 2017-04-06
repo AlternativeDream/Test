@@ -151,4 +151,17 @@ public class UserServiceImp implements UserService {
 		
 		return result;
 	}
+
+	@Override
+	public List<?> querUsers(User user) throws Exception {
+		List<?> result = null;
+		
+		try{
+			result = this.provider.queryUsers(user);
+		}catch(Exception e){
+			throw e;
+		}
+		
+		return result;
+	}
 }
