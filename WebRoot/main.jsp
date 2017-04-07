@@ -263,6 +263,25 @@
                 $("#header").mouseleave(function(){
                     $(".nav-nextli").fadeOut();
                 });
+                
+                $(".main-wares").on('click','.ware-cart',function(){
+                    var wareId = $(this).parent().parent().parent().attr("id");
+                    var queity = $(this).parent().find(".ware-num").val();
+                    var cart = localStorage.getItem("shoppingcart");
+                    var wares = localStorage.getItem("queity");
+                    
+                    if(cart == null || cart == ""){
+                        cart = wareId;
+                        wares = queity;
+                    }else{
+                        cart = cart + "," + wareId;
+                        wares = wares + "," + queity;
+                    }
+                    
+                    localStorage.setItem("shoppingcart",cart);
+                    localStorage.setItem("queity",wares);
+                    alert("已加入购物车！");
+                });
 
             }
             

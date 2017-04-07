@@ -145,6 +145,7 @@
                             </div>
                         </div>
                         <div class="addware">
+                        	<a class="closeware" href="javascript:void(0)" >关闭</a>
                             <input class="wareName" type="text" placeholder="商品名" />
                             <input class="warePrice" type="text" placeholder="单价" />
                             <input class="description" type="text" placeholder="详情" />
@@ -161,6 +162,7 @@
                             <input id="addnewware" type="button" value="添加新品">
                         </div>
                         <div class="updateware">
+                        	<a class="closeware" href="javascript:void(0)" >关闭</a>
                             <input class="wareName" type="text" placeholder="商品名" />
                             <input class="warePrice" type="text" placeholder="单价" />
                             <input class="description" type="text" placeholder="详情" />
@@ -232,9 +234,9 @@
 		</script>
         <!--商品模板-->
         <script id="wares" type="text/html">
-            <div class="ware">
+            <div id="{{wareId}}" class="ware">
                 <div class="ware-title">
-                    <span>商品编号：<a class="ware-id">{{wareId}}<a></span>
+                    <span>商品编号：{{wareId}}</span>
                     <span></span>
                     <span></span>
                 </div>
@@ -348,24 +350,19 @@
                     		"wareimg": wareimg
                     	},
                 		datatype: "json",
-                		success: function(){
+                		success: function(data){
+                			getWarelist();
+                			alert(data);
                 		}
                 	});
                     $(".addware").fadeOut();
-                    
-                    var message = "${message}";
-                    
-                    if(message != ""){
-                    	alert(message);
-                    }
-                    
                 });
                 
                 $(".wares-list").on('click','.btn-update',function(){
-                	thiswareid = $(this).parent().parent().parent().parent().find(".ware-id").text();
+                	thiswareid = $(this).parent().parent().parent().parent().attr("id");
                 	var updateware = $(".updateware");
                 	thisware = $(this).parent().parent().parent();
-                	alert(thiswareid);
+                	
                     $(".updateware").fadeIn();
                     
                     for(var i = 0; i < warelist.length;i++){
@@ -397,14 +394,6 @@
                  	var wareimg = updateware.find(".wareimg").val();
                  	var status = updateware.find(".status").val();
                  	
-                 	wareName != "" && (wareName = null);
-                 	warePrice != "" && (warePrice = null);
-                 	description != "" && (description = null);
-                 	wareKind != "" && (wareKind = null);
-                 	warekey != "" && (warekey = null);
-                 	wareimg != "" && (wareimg = null);
-                 	status != "" && (status = 1);
-                 	
                  	if(wareimg != null){
                  		var arr = wareimg.split('.');
                  		arr = arr[arr.length-1];
@@ -431,7 +420,6 @@
                  		data: ware,
                  		datatype: 'text',
                  		success: function(data){
-                 			alert(data);
                  			thisware.find(".wareName").text(wareName);
                  			thisware.find(".warePrice").text(warePrice);
                  			thisware.find(".description").text(description);
@@ -557,6 +545,11 @@
                 	
                 	getWarelist(ware);
                 	
+                });
+                
+                /* 关闭新增怎修改对话框   */
+                $(".closeware").click(function(){
+                	$(this).parent().hide();
                 });
             }
         	

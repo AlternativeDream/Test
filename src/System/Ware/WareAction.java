@@ -142,6 +142,20 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 			if(ware !=null ){
 				response.setContentType("text/html;charset=UTF-8");
 				out = response.getWriter();
+				
+				if(ware.getWareimg() == null || ware.getWareimg().equals("")){
+					String imgurl = ((Ware) wareService.query(new Ware(ware.getWareId())).get(0)).getWareimg();
+					ware.setWareimg(imgurl);
+				}else{
+					String imgurl = ware.getWareimg();
+					String[] a = imgurl.split("\\\\");
+					String img = a[a.length-1];
+					
+					img = "images" + "/" + ware.getWareKind() + "/" + img;
+					
+					ware.setWareimg(img);
+				}
+
 				if(wareService.modify(ware) > 0){
 					out.print("修改成功！");
 				}else{

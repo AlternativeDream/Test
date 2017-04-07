@@ -58,7 +58,7 @@
                 </div>
                 <div id="total">
                     <div class="myorder">
-                        <div class="order-head"><span>订单号</span><span>订单商品</span><span>收货人</span><span>订单金额</span><span>日期</span><span>操作</span></div>
+                        <div class="order-head"><span>订单号</span><span>订单商品</span><span>收货人</span><span>订单金额</span><span>数量</span><span>日期</span><span>操作</span></div>
                         <div id="goindex" class="orderinfo">暂无订单，这就去挑选商品 : <a href="index.html">商城首页</a></div>
                         <div class="orderinfo">
                             <div>
@@ -121,7 +121,19 @@
         </script>
         <script id="orders" type="text/html">
 			<div class="orderinfo">
-				<span>{{orderId}}</span><span>{{ware.wareName}}</span><span>{{address.addressee}}</span><span>¥{{totalPrice}}</span><span class="orderdate">{{orderdate}}</span><span><a href="javascript:void(0)">详情</a></span>
+				<div class="ordermsg">
+					<span>{{orderId}}</span>
+					<span>{{ware.wareName}}</span>
+					<span>{{address.addressee}}</span>
+					<span>¥{{totalPrice}}</span>
+					<span>{{quantity}}</span>
+					<span class="orderdate">{{orderdate}}</span>
+					<span><a class="toggledec" href="javascript:void(0)">详情</a></span>
+				</div>
+				<div class="order-dec">
+                	<span>收货地址：{{address.address}}</span>
+                	<span>联系方式：{{address.addtel}}</span>
+                </div>
 			</div>
 		</script>
         <script type="text/javascript">
@@ -281,7 +293,7 @@
                     alert("修改成功");
                 });
 
-		$(".orderinfo").on('click','.toggledec',function(){
+				$(".myorder").on('click','.toggledec',function(){
                     $(this).parent().parent().next().slideToggle();
                 });
                 

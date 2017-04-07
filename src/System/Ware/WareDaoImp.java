@@ -110,7 +110,7 @@ public class WareDaoImp implements WareDao {
 				query = getSession().createQuery(Hql).setString(0, ware.getWareName());
 			}else if(ware.getWarekey() !=null && !ware.getWarekey().equals("")){
 				if(ware.getWareKind() !=null && !ware.getWareKind().equals("")){
-					Hql = " from Ware w where w.wareKind=? or w.warekey like ? or w.wareName like ? or w.description like ?";
+					Hql = " from Ware w where w.wareKind=? and (w.warekey like ? or w.wareName like ? or w.description like ?)";
 					query = getSession().createQuery(Hql).setString(0, ware.getWareKind()).setString(1, "%" + ware.getWarekey() + "%").setString(2, "%" + ware.getWarekey() + "%").setString(3, "%" + ware.getWarekey() + "%");
 				}else{
 					Hql = " from Ware w where w.warekey like ? or w.wareName like ? or w.description like ?";
