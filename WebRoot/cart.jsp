@@ -29,7 +29,7 @@
                     <a href="index.jsp"><div id="header-logo"></div></a>
                     <div id="search">
                         <input class="search" type="text" placeholder="一元购" />
-                        <button class="search-btn" type="submit">搜索</button>
+                        <button class="search-btn" type="button">搜索</button>
                     </div>
                 </div>
             </div>
@@ -167,6 +167,11 @@
                 		}
                 	});
                 });
+                
+                $(".search-btn").click(function(){
+	                var warekey = $(".search").val();
+	                window.location.href = "main.jsp?warekey=" + encodeURIComponent(warekey);
+	            });
             }
             
             /* 判断购物车是否有商品 */

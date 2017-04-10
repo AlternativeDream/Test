@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div id="search">
                         <i class="fa fa-search"></i>
                         <input class="search" type="text" placeholder="一元购" />
-                        <button class="search-btn" type="submit">搜索</button>
+                        <button class="search-btn" type="button">搜索</button>
                     </div>
                 </div>
             </div>
@@ -420,9 +420,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script type="text/javascript" src="js/template.js"></script>
         <script id="navData" type="text/html">
             <h4><a href="{{url}}">{{pageName}}</a></h4>
-            <p><span><a href="{{url}}">{{typeName1}}</a></span><span><a href="{{url}}">{{typeName2}}</a></span></p>
-            <p><span><a href="{{url}}">{{typeName3}}</a></span><span><a href="{{url}}">{{typeName4}}</a></span></p>
-            <p><span><a href="{{url}}">{{typeName5}}</a></span><span><a href="{{url}}">{{typeName6}}</a></span></p>
+            <p><span><a href="{{key}}{{typeName1}}">{{typeName1}}</a></span><span><a href="{{key}}{{typeName2}}">{{typeName2}}</a></span></p>
+            <p><span><a href="{{key}}{{typeName3}}">{{typeName3}}</a></span><span><a href="{{key}}{{typeName4}}">{{typeName4}}</a></span></p>
+            <p><span><a href="{{key}}{{typeName5}}">{{typeName5}}</a></span><span><a href="{{key}}{{typeName6}}">{{typeName6}}</a></span></p>
         </script>
         <script type="text/javascript">
             /* 导航数据 */
@@ -435,7 +435,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "腰果",
                     "typeName5" : "芒果干",
                     "typeName6" : "肉干肉铺",
-                    "url": "main.jsp?wareKind=snacks"
+                    "url": "main.jsp?wareKind=snacks",
+                    "key": "main.jsp?warekey="
                 },{
                     "pageName" : "进口饼干/糕点",
                     "typeName1" : "饼干",
@@ -444,7 +445,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "传统糕点",
                     "typeName5" : "西式糕点",
                     "typeName6" : "面包",
-                    "url": "main.jsp?wareKind=cooky"
+                    "url": "main.jsp?wareKind=cooky",
+                    "key": "main.jsp?warekey="
                 },{
                     "pageName" : "进口糖果/巧克力",
                     "typeName1" : "巧克力",
@@ -453,7 +455,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "松露",
                     "typeName5" : "硬糖",
                     "typeName6" : "软糖",
-                    "url": "main.jsp?wareKind=candy"
+                    "url": "main.jsp?wareKind=candy",
+                    "key": "main.jsp?warekey="
                 },{
                     "pageName" : "进口牛奶/奶粉",
                     "typeName1" : "全脂",
@@ -462,7 +465,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "香蕉牛奶",
                     "typeName5" : "奶粉",
                     "typeName6" : "酸奶",
-                    "url": "main.jsp?wareKind=milk"
+                    "url": "main.jsp?wareKind=milk",
+                    "key": "main.jsp?warekey="
                 },{
                     "pageName" : "进口酒/饮料/水",
                     "typeName1" : "葡萄酒",
@@ -471,7 +475,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "碳酸饮料",
                     "typeName5" : "果蔬汁",
                     "typeName6" : "椰子水",
-                    "url": "main.jsp?wareKind=wine"
+                    "url": "main.jsp?wareKind=wine",
+                    "key": "main.jsp?warekey="
                 },{
                     "pageName" : "进口冲饮/咖啡/茶",
                     "typeName1" : "早餐谷物",
@@ -480,7 +485,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "typeName4" : "绿茶",
                     "typeName5" : "速溶咖啡",
                     "typeName6" : "咖啡豆",
-                    "url": "main.jsp?wareKind=coffee"
+                    "url": "main.jsp?wareKind=coffee",
+                    "key": "main.jsp?warekey="
                 }
             ]
             
@@ -574,6 +580,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	}else if(userId == "0"){
                 		window.location.href = "business.jsp";
                 	}
+                });
+                
+                $(".search-btn").click(function(){
+                	var warekey = $(".search").val();
+                	window.location.href = "main.jsp?warekey=" + encodeURIComponent(warekey);
                 });
             }
             

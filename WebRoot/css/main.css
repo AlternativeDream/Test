@@ -475,6 +475,28 @@ a{
     font-size: 0;
 }
 
+#next ul{
+	font-size: 14px;
+	list-style: none;
+	width: 100%;
+	text-align: center;
+}
+
+#next li{
+	display: inline-block;
+	border-left: 1px solid #666;
+	text-align: center;
+	padding: 0 10px;
+}
+
+#next li:first-child{
+	border: none;
+}
+
+#next a{
+	color: #333;
+}
+
 /* 商品样式 */
 .ware{
     width: 240px;

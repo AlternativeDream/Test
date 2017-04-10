@@ -39,7 +39,7 @@
                     <div id="search">
                         <i class="fa fa-search"></i>
                         <input class="search" type="text" placeholder="一元购" />
-                        <button class="search-btn" type="submit">搜索</button>
+                        <button class="search-btn" type="button">搜索</button>
                     </div>
                 </div>
             </div>
@@ -296,6 +296,11 @@
 				$(".myorder").on('click','.toggledec',function(){
                     $(this).parent().parent().next().slideToggle();
                 });
+				
+				$(".search-btn").click(function(){
+	                var warekey = $(".search").val();
+	                window.location.href = "main.jsp?warekey=" + encodeURIComponent(warekey);
+	            });
                 
             }
             

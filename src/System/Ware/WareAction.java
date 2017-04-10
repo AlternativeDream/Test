@@ -84,6 +84,7 @@ public class WareAction extends ActionSupport implements ModelDriven<Ware>{
 			
 			if(warekey != null && !warekey.equals("")){
 				ware.setWarekey(warekey);
+				System.out.println(warekey);
 			}
 			
 			if(wareKind != null && !wareKind.equals("")){

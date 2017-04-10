@@ -37,165 +37,25 @@
                     <a href="index.jsp"><div id="header-logo"></div></a>
                     <div id="search">
                         <input id="wareQuery" class="search" type="text" placeholder="一元购" />
-                        <button class="search-btn" type="submit">搜索</button>
+                        <button class="search-btn" type="button">搜索</button>
                     </div>
                 </div>
             </div>
             <!--主体标签-->
             <div id="page">
                 <div class="main-wares">
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/ChEi21gNtJ-AIK2JAAReFlOcKGM42701_230-230.jpg" alt="小老板" /></div>
-                        <div class="ware-buy">
-                            <h4>¥11.9</h4>
-                            <p>小老板 烤海苔卷 原味32.4g/盒 泰国进口</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/9b6408fa513d2697c1e465665dfbb2fb4316d85a.jpg" alt="ZEK 芝士鳕鱼肠" /></div>
-                        <div class="ware-buy">
-                            <h4>¥10.9</h4>
-                            <p>ZEK 芝士鳕鱼肠（袋装）105g韩国进口</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/ChEi1VciwfGAB1e0AARmzg2P0hI75901_230-230.jpg" alt="Richeese 丽芝士 雅嘉奶酪味玉米棒" /></div>
-                        <div class="ware-buy">
-                            <h4>¥19.9</h4>
-                            <p>Richeese 丽芝士 雅嘉奶酪味玉米棒</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/ChEi3FZWvfCAMJtUAAOnqaAgBA441701_230-230.jpg" alt="海牌 海苔 2g *10 韩国进口 X 6" /></div>
-                        <div class="ware-buy">
-                            <h4>¥62.28</h4>
-                            <p>海牌 海苔 2g *10 韩国进口 X 6</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/CgQCtVMqkY-AXBO_AAOaT9k_BHU20801_230-230.jpg" alt="papatonk 啪啪通 虾片 原味 2连包" /></div>
-                        <div class="ware-buy">
-                            <h4>¥18.8</h4>
-                            <p>papatonk 啪啪通 虾片 原味 2连包</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/ChEi21gNtJ-AIK2JAAReFlOcKGM42701_230-230.jpg" alt="小老板" /></div>
-                        <div class="ware-buy">
-                            <h4>¥11.9</h4>
-                            <p>小老板 烤海苔卷 原味32.4g/盒 泰国进口</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/9b6408fa513d2697c1e465665dfbb2fb4316d85a.jpg" alt="ZEK 芝士鳕鱼肠" /></div>
-                        <div class="ware-buy">
-                            <h4>¥10.9</h4>
-                            <p>ZEK 芝士鳕鱼肠（袋装）105g韩国进口</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/ChEi1VciwfGAB1e0AARmzg2P0hI75901_230-230.jpg" alt="Richeese 丽芝士 雅嘉奶酪味玉米棒" /></div>
-                        <div class="ware-buy">
-                            <h4>¥19.9</h4>
-                            <p>Richeese 丽芝士 雅嘉奶酪味玉米棒</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/ChEi3FZWvfCAMJtUAAOnqaAgBA441701_230-230.jpg" alt="海牌 海苔 2g *10 韩国进口 X 6" /></div>
-                        <div class="ware-buy">
-                            <h4>¥62.28</h4>
-                            <p>海牌 海苔 2g *10 韩国进口 X 6</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ware">
-                        <div class="ware-img"><img src="images/snacks/CgQCtVMqkY-AXBO_AAOaT9k_BHU20801_230-230.jpg" alt="papatonk 啪啪通 虾片 原味 2连包" /></div>
-                        <div class="ware-buy">
-                            <h4>¥18.8</h4>
-                            <p>papatonk 啪啪通 虾片 原味 2连包</p>
-                            <div class="ware-buy-btn">
-                                <input class="ware-num" type="text" readonly="true" value="0" />
-                                <div class="ware-btn">
-                                    <input class="ware-add" type="button" value="∧" />
-                                    <input class="ware-minus" type="button" value="∨" />
-                                </div>
-                                <button class="ware-cart" type="button">加入购物车</button>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
-                <div id="next"></div>
+                <div id="next">
+                	<ul>
+                		<li>共查找到<span id="totalNum" ></span>件商品</li>
+                		<li id="homePage"><a href="javascript:void(0)">首页</a></li>
+                		<li id="lastPage"><a href="javascript:void(0)">上一页</a></li>
+                		<li id="nextPage"><a href="javascript:void(0)">下一页</a></li>
+                		<li id="endPage"><a href="javascript:void(0)">尾页</a></li>
+                		<li>第<span id="curPage">1</span>页/共<span id="pageCount"></span>页</li>
+                	</ul>
+                </div>
             </div>
             <!--底部标签-->
             <div id="footer">
@@ -213,7 +73,7 @@
                     <h4>¥{{warePrice}}</h4>
                     <p>{{wareName}} {{description}}</p>
                     <div class="ware-buy-btn">
-                        <input class="ware-num" type="text" readonly="true" value="0" />
+                        <input class="ware-num" type="text" readonly="true" value="1" />
                         <div class="ware-btn">
                             <input class="ware-add" type="button" value="∧" />
                             <input class="ware-minus" type="button" value="∨" />
@@ -225,6 +85,9 @@
         </script>
         <script type="text/javascript">
         	var warelist;
+        	var totalNum;
+        	var pageCount;
+        	var curPage;
             /* 初始化 */
             $(document).ready(function(){
                 bindEvent();
@@ -247,7 +110,7 @@
                 
                 $(".main-wares").on('click','.ware-minus',function(){
                     var num = parseInt($(this).parent().prev().val());
-                    if(num > 0){
+                    if(num > 1){
                         $(this).parent().prev().val(num-1);
                         $(this).prev().removeAttr("disabled");
                     }else{
@@ -282,16 +145,70 @@
                     localStorage.setItem("queity",wares);
                     alert("已加入购物车！");
                 });
+                
+                $(".search-btn").click(function(){
+                	wareQuery();
+                });
+                
+                $("#homePage").click(function(){
+                	var curPage = parseInt($("#curPage").text());
+                	
+                	if(curPage != 1){
+                		curPage(1);
+                		$("#curPage").text("1");
+                	}
+                });
+                
+				$("#lastPage").click(function(){
+					var curPage = parseInt($("#curPage").text());
+					
+					if(curPage != 1){
+						curPage--;
+						pagpin(curPage);
+						$("#curPage").text(curPage);
+					}
+                });
+                
+				$("#nextPage").click(function(){
+					var curPage = parseInt($("#curPage").text());
+					
+					if(curPage != pageCount){
+						curPage++;
+						pagpin(curPage);
+						$("#curPage").text(curPage);
+					}
+				});
+
+				$("#endPage").click(function(){
+					var curPage = parseInt($("#curPage").text());
+					
+					if(curPage != pageCount){
+                		pagpin(pageCount);
+                		$("#curpage").text(pageCount);
+                	}
+				});
 
             }
             
             function wareQuery(){
             	var warekey = $("#wareQuery").val();
+            	var ware;
             	if(warekey != null && warekey !=""){
-            		var ware = {
+            		ware = {
                 			"warekey": warekey
                 	};
+            	}else{
+            		ware = {};
+            		var url = location.search;
+                	if(url != null && url != ""){
+                		var str = url.substr(1);
+                		str = str.split("=");
+                		ware[str[0]] = decodeURIComponent(str[1]);
+                	}
             	}
+            	
+            	
+            	console.log(ware);
             	
             	$.ajax({
             		type: 'POST',
@@ -300,14 +217,14 @@
             		datatype: 'json',
             		success: function(data){
             			warelist = data;
-						var html = "";
-	                	
-	                	for(var i = 0; i < data.length;i++){
-	                		html = html + template("ware-model",warelist[i]);
-	                	}
-	                	
-	                	$(".main-wares").append(html);
-	                	
+            			totalNum = warelist.length;
+                    	pageCount = pageCount = parseInt(totalNum/20 + 1);
+                    	
+                    	pagpin(1);
+                    	
+                    	$("#totalNum").text(totalNum);
+                    	$("#pageCount").text(pageCount);
+                    	
 	                },error:function(data){
 	                	alert(data);
 	                }
@@ -327,6 +244,26 @@
             		$("#goregister").css("display","none");
             		$("#isLogin").css("display","inline-block");
             	}
+            }
+            
+            /* 分页   */
+            function pagpin(pageNum){
+            	var Count = pageNum * 20;
+            	var start = (pageNum - 1) * 20;
+            	
+            	if(Count > totalNum){
+            		Count = totalNum;
+            	}
+            	
+            	var html = "";
+            	
+            	for(var i = start; i < Count;i++){
+            		html = html + template("ware-model",warelist[i]);
+            	}
+            	
+            	$(".main-wares").empty();
+            	$(".main-wares").append(html);
+            	$("#curPage").text(pageNum);
             }
         </script>
 	</body>
