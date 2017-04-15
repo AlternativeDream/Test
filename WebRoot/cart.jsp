@@ -39,17 +39,7 @@
                     <div class="cart-head">
                         <span>商品信息</span><span>单价(元)</span><span>数量</span><span>小计(元)</span><span>操作</span>
                     </div>
-                    <div class="cart-ware">
-                        <span><img src="images/snacks/ChEi21gNtJ-AIK2JAAReFlOcKGM42701_230-230.jpg" />小老板 烤海苔卷 原味</span>
-                        <span class="wareprice">¥11.9</span>
-                        <span>
-                            <input class="minusware" type="button" value="-" />
-                            <input class="warenum" type="text" readonly="true" value="1" />
-                            <input class="addware" type="button" value="+" />
-                        </span>
-                        <span class="waresum">¥11.9</span>
-                        <span class="delware"><a href="#"><i class="fa fa-trash"></i></a></span>
-                    </div>
+
                 </div>
                 <div><h1>合计：<span id="tatol-ware"></span></h1></div>
                 <div><input class="cart-buy" type="button" value="前去支付" /></div>
@@ -100,24 +90,71 @@
             function bindEven(){
                 $(".cart").on('click','.minusware',function(){
                     var num = parseInt($(this).next().val());
-                    var price = parseFloat($(".wareprice").text().substring(1));
+                    var totalPrice = parseFloat($("#tatol-ware").text());
+                    var price = parseFloat($(this).parent().parent().find(".wareprice").text().substring(1));
+                    var queity = localStorage.getItem("queity");
+                    queity = queity.split(",");
                     if(num > 1){
                         $(this).next().val(num-1);
-                        $(".waresum").text("¥"+(price*(num-1)).toFixed(1));
+                        $(this).parent().next().text("¥"+(price*(num-1)).toFixed(1));
+                        $("#tatol-ware").text((totalPrice - price).toFixed(1));
+                        var index = $(this).parent().parent().index();
+                        queity[index-1] = parseInt(queity[index-1]) - 1;
+                        queity.join();
+                        localStorage.setItem("queity",queity);
                     }
                 })
                 
                 $(".cart").on('click','.addware',function(){
                     var num = parseInt($(this).prev().val());
-                    var price = parseFloat($(".wareprice").text().substring(1));
+                    var totalPrice = parseFloat($("#tatol-ware").text());
+                    var price = parseFloat($(this).parent().parent().find(".wareprice").text().substring(1));
+                    var queity = localStorage.getItem("queity");
+                    queity = queity.split(",");
                     if(num < 99){
                         $(this).prev().val(num+1);
-                        $(".waresum").text("¥"+(price*(num+1)).toFixed(1));
+                        $(this).parent().next().text("¥"+(price*(num+1)).toFixed(1));
+                        $("#tatol-ware").text((totalPrice + price).toFixed(1));
+                        var index = $(this).parent().parent().index();
+                        queity[index-1] = parseInt(queity[index-1]) + 1;
+                        queity.join();
+                        localStorage.setItem("queity",queity);
                     }
                 })
                 
                 $(".cart").on('click','.delware',function(){
+                	var price = parseFloat($("#tatol-ware").text());
+                	var id = $(this).parent().attr("id") + ",";
+                	price = price - parseFloat($(this).parent().find(".waresum").text().substring(1));
+                	$("#tatol-ware").text(price.toFixed(1));
+                	var cart = localStorage.getItem("shoppingcart");
+                	var queity = localStorage.getItem("queity");
+                	
+                	if(cart != null && cart !=""){
+                		cart = cart + ",";
+                	}
+                	
+                	cart = cart.replace(id,"");
+                	
+                	if(cart == null || cart == "" || cart == ","){
+                		localStorage.removeItem("shoppingcart");
+                		localStorage.removeItem("queity");
+                	}else{
+                		localStorage.setItem("shoppingcart",cart.substring(0,cart.length-1));
+                		queity = queity.split(",");
+                		var index = $(this).parent().index();
+                		queity.splice(index-1,1);
+                		queity.join();
+                        localStorage.setItem("queity",queity);
+                	}
+                	
                     $(this).parent().remove();
+                    
+                    if( cart == "" || cart == null ){
+                        $(".cart").append('<div class="cart-ware"><span id="mesware">您的购物车没有商品哦 <a href="index.jsp">前去购买</a></span></div>');
+                        $(".cart-buy").css("display","none");
+                        return null;
+                	}
                 });
                 
                 $(".cart-buy").click(function(){
@@ -151,6 +188,7 @@
                 	var wares = localStorage.getItem("shoppingcart");
                 	var queity = localStorage.getItem("queity");
                 	var address = $("#getAddress").val();
+                	
                 	$.ajax({
                 		type:'POST',
                 		url: 'AddOrder',
@@ -180,6 +218,7 @@
 
                 if( cart == "" || cart == null ){
                     $(".cart").append('<div class="cart-ware"><span id="mesware">您的购物车没有商品哦 <a href="index.jsp">前去购买</a></span></div>');
+                    $(".cart-buy").css("display","none");
                     return null;
             	}
                 

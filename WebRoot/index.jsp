@@ -71,13 +71,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div id="nav-page"></div>
                     <div id="main">
                         <ul>
-                            <li><img src="images/main-ad1.png" alt="ad1" /></li>
-                            <li><img src="images/main-ad2.png" alt="ad2" /></li>
-                            <li><img src="images/main-ad3.png" alt="ad3" /></li>
-                            <li><img src="images/main-ad4.png" alt="ad4" /></li>
-                            <li><img src="images/main-ad5.png" alt="ad5" /></li>
-                            <li><img src="images/main-ad6.png" alt="ad6" /></li>
-                            <li><img src="images/main-ad7.png" alt="ad7" /></li>
+                            <li><a href="main.jsp?wareKind=snacks"><img src="images/main-ad1.png" alt="ad1" /></a></li>
+                            <li><a href="main.jsp?wareKind=snacks"><img src="images/main-ad2.png" alt="ad2" /></a></li>
+                            <li><a href="main.jsp?wareKind=cooky"><img src="images/main-ad3.png" alt="ad3" /></a></li>
+                            <li><a href="main.jsp?wareKind=cooky"><img src="images/main-ad4.png" alt="ad4" /></a></li>
+                            <li><a href="main.jsp?wareKind=candy"><img src="images/main-ad5.png" alt="ad5" /></a></li>
+                            <li><a href="main.jsp?wareKind=candy"><img src="images/main-ad6.png" alt="ad6" /></a></li>
+                            <li><a href="main.jsp?wareKind=coffee"><img src="images/main-ad7.png" alt="ad7" /></a></li>
                         </ul>
                         <ol>
                             <li></li>

@@ -53,6 +53,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 	PrintWriter out;
 	
 	private Order order;
+	private User user;
 	
 	public String getCharge(){
 		String result = null;
@@ -89,7 +90,8 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			String wares = request.getParameter("wares");
 			String queity = request.getParameter("queity");
 			Integer addressId = Integer.parseInt(request.getParameter("address"));
-			User user = (User) session.getAttribute("User");
+			System.out.println(addressId);
+			user = (User) session.getAttribute("User");
 			
 			String[] w = wares.split(",");
 			String[] q = queity.split(",");
@@ -105,6 +107,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 			Ware ware;
 			Address address = new Address();
 			address.setAddressId(addressId);
+			address.setUserId(user.getUserId());
 			address = (Address) addressService.query(address).get(0);
 			Integer price;
 			order.setAddress(address);

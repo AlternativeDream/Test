@@ -758,7 +758,7 @@ a{
 }
 
 .orderinfo{
-    text-align: center;
+    text-align: left;
     width: 100%;
     line-height: 80px;
     border: 1px solid #F0F0F0;
@@ -766,6 +766,11 @@ a{
 
 .ordermsg{
 	padding-left: 10px;
+}
+
+.ordermsg span{
+	width: 94px;
+	text-align: center;
 }
 
 .order-dec{
